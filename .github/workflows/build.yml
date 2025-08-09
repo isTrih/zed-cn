@@ -59,16 +59,6 @@ jobs:
       - name: Setup MSVC
         uses: microsoft/setup-msbuild@v2
 
-      - name: Install C++ build tools and SDK
-        uses: microsoft/setup-cpp@v1
-        with:
-          vs-version: "latest"
-          components: >
-            Microsoft.VisualStudio.Component.VC.Tools.x86.x64,
-            Microsoft.VisualStudio.Component.VC.CMake.Project,
-            Microsoft.VisualStudio.Component.Windows11SDK.26100,
-            Microsoft.VisualStudio.Component.VC.Runtimes.x86.x64.Spectre
-
       - name: Enable Windows Long Paths in Registry
         run: |
           Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" `
