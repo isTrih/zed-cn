@@ -1143,7 +1143,7 @@ impl Copilot {
 fn id_for_language(language: Option<&Arc<Language>>) -> String {
     language
         .map(|language| language.lsp_id())
-        .unwrap_or_else(|| "plaintext".to_string())
+        .unwrap_or_else(|| "纯文本".to_string())
 }
 
 fn uri_for_buffer(buffer: &Entity<Buffer>, cx: &App) -> Result<lsp::Url, ()> {

@@ -2080,7 +2080,7 @@ impl AgentPanel {
 
                         menu = menu
                             .action("Rules…", Box::new(OpenRulesLibrary::default()))
-                            .action("Settings", Box::new(OpenSettings))
+                            .action("设置", Box::new(OpenSettings))
                             .separator()
                             .action(full_screen_label, Box::new(ToggleZoom));
                         menu

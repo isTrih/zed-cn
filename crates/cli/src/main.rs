@@ -815,7 +815,7 @@ mod mac_os {
             let bundle_path = if let Some(bundle_path) = path {
                 bundle_path
                     .canonicalize()
-                    .with_context(|| format!("Args bundle path {bundle_path:?} canonicalization"))?
+                    .with_context(|| format!("Args 捆绑路径 {bundle_path:?} 规范化"))?
             } else {
                 locate_bundle().context("bundle autodiscovery")?
             };
@@ -825,7 +825,7 @@ mod mac_os {
                     let plist_path = bundle_path.join("Contents/Info.plist");
                     let plist =
                         plist::from_file::<_, InfoPlist>(&plist_path).with_context(|| {
-                            format!("Reading *.app bundle plist file at {plist_path:?}")
+                            format!("在 {plist_path:?} 读取 *.app 捆绑包 plist 文件")
                         })?;
                     Ok(Bundle::App {
                         app_bundle: bundle_path,
@@ -851,7 +851,7 @@ mod mac_os {
 
                     let status = unsafe {
                         let app_url = CFURL::from_path(app_path, true)
-                            .with_context(|| format!("invalid app path {app_path:?}"))?;
+                            .with_context(|| format!("无效的应用路径 {app_path:?}"))?;
                         let url_to_open = CFURL::wrap_under_create_rule(CFURLCreateWithBytes(
                             ptr::null(),
                             url.as_ptr(),
@@ -884,14 +884,14 @@ mod mac_os {
                 Self::LocalPath { executable, .. } => {
                     let executable_parent = executable
                         .parent()
-                        .with_context(|| format!("Executable {executable:?} path has no parent"))?;
+                        .with_context(|| format!("可执行文件 {executable:?} 路径没有父级"))?;
                     let subprocess_stdout_file = fs::File::create(
                         executable_parent.join("zed_dev.log"),
                     )
-                    .with_context(|| format!("Log file creation in {executable_parent:?}"))?;
+                    .with_context(|| format!("在 {executable_parent:?} 创建日志文件"))?;
                     let subprocess_stdin_file =
                         subprocess_stdout_file.try_clone().with_context(|| {
-                            format!("Cloning descriptor for file {subprocess_stdout_file:?}")
+                            format!("为文件 {subprocess_stdout_file:?} 克隆描述符")
                         })?;
                     let mut command = std::process::Command::new(executable);
                     let command = command
@@ -902,7 +902,7 @@ mod mac_os {
 
                     command
                         .spawn()
-                        .with_context(|| format!("Spawning {command:?}"))?;
+                        .with_context(|| format!("生成 {command:?}"))?;
                 }
             }
 
@@ -957,7 +957,7 @@ mod mac_os {
     ) -> Result<()> {
         use anyhow::bail;
 
-        let app_id_prompt = format!("id of app \"{}\"", channel.display_name());
+        let app_id_prompt = format!("应用 ID \"{}\"", channel.display_name());
         let app_id_output = Command::new("osascript")
             .arg("-e")
             .arg(&app_id_prompt)

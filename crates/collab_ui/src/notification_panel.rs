@@ -33,7 +33,7 @@ use workspace::{
 const LOADING_THRESHOLD: usize = 30;
 const MARK_AS_READ_DELAY: Duration = Duration::from_secs(1);
 const TOAST_DURATION: Duration = Duration::from_secs(5);
-const NOTIFICATION_PANEL_KEY: &str = "NotificationPanel";
+const NOTIFICATION_PANEL_KEY: &str = "通知面板";
 
 pub struct NotificationPanel {
     client: Arc<Client>,
@@ -319,7 +319,7 @@ impl NotificationPanel {
                                         h_flex()
                                             .flex_grow()
                                             .justify_end()
-                                            .child(Button::new("decline", "Decline").on_click({
+                                            .child(Button::new("decline", "拒绝").on_click({
                                                 let notification = notification.clone();
                                                 let entity = cx.entity().clone();
                                                 move |_, _, cx| {
@@ -332,7 +332,7 @@ impl NotificationPanel {
                                                     });
                                                 }
                                             }))
-                                            .child(Button::new("accept", "Accept").on_click({
+                                            .child(Button::new("accept", "接受").on_click({
                                                 let notification = notification.clone();
                                                 let entity = cx.entity().clone();
                                                 move |_, _, cx| {
@@ -367,7 +367,7 @@ impl NotificationPanel {
                 let requester = user_store.get_cached_user(sender_id)?;
                 Some(NotificationPresenter {
                     icon: "icons/plus.svg",
-                    text: format!("{} wants to add you as a contact", requester.github_login),
+                    text: format!("{} 想要将您添加为联系人", requester.github_login),
                     needs_response: user_store.has_incoming_contact_request(requester.id),
                     actor: Some(requester),
                     can_navigate: false,
@@ -377,7 +377,7 @@ impl NotificationPanel {
                 let responder = user_store.get_cached_user(responder_id)?;
                 Some(NotificationPresenter {
                     icon: "icons/plus.svg",
-                    text: format!("{} accepted your contact invite", responder.github_login),
+                    text: format!("{} 接受了您的联系人邀请", responder.github_login),
                     needs_response: false,
                     actor: Some(responder),
                     can_navigate: false,
@@ -392,7 +392,7 @@ impl NotificationPanel {
                 Some(NotificationPresenter {
                     icon: "icons/hash.svg",
                     text: format!(
-                        "{} invited you to join the #{channel_name} channel",
+                        "{} 邀请您加入 #{channel_name} 频道",
                         inviter.github_login
                     ),
                     needs_response: channel_store.has_channel_invitation(ChannelId(channel_id)),
@@ -414,7 +414,7 @@ impl NotificationPanel {
                 Some(NotificationPresenter {
                     icon: "icons/conversations.svg",
                     text: format!(
-                        "{} mentioned you in #{}:\n{}",
+                        "{} 提到了您在 #{}:\n{}",
                         sender.github_login, channel.name, message.body,
                     ),
                     needs_response: false,
@@ -621,7 +621,7 @@ impl Render for NotificationPanel {
                     .h(Tab::container_height(cx))
                     .border_b_1()
                     .border_color(cx.theme().colors().border)
-                    .child(Label::new("Notifications"))
+                    .child(Label::new("通知"))
                     .child(Icon::new(IconName::Envelope)),
             )
             .map(|this| {
@@ -671,7 +671,7 @@ impl Render for NotificationPanel {
                     this.child(
                         v_flex().p_4().child(
                             div().flex().w_full().items_center().child(
-                                Label::new("You have no notifications.")
+                                Label::new("您没有通知。")
                                     .color(Color::Muted)
                                     .size(LabelSize::Small),
                             ),
@@ -704,7 +704,7 @@ impl EventEmitter<PanelEvent> for NotificationPanel {}
 
 impl Panel for NotificationPanel {
     fn persistent_name() -> &'static str {
-        "NotificationPanel"
+        "通知面板"
     }
 
     fn position(&self, _: &Window, cx: &App) -> DockPosition {
@@ -761,7 +761,7 @@ impl Panel for NotificationPanel {
     }
 
     fn icon_tooltip(&self, _window: &Window, _cx: &App) -> Option<&'static str> {
-        Some("Notification Panel")
+        Some("通知面板")
     }
 
     fn icon_label(&self, _window: &Window, cx: &App) -> Option<String> {

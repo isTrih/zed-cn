@@ -619,7 +619,7 @@ impl Render for RateCompletionModal {
                                                 (false, false) => (IconName::FileDiff, Color::Accent, "Edits Available"),
                                             };
 
-                                            let file_name = completion.path.file_name().map(|f| f.to_string_lossy().to_string()).unwrap_or("untitled".to_string());
+                                            let file_name = completion.path.file_name().map(|f| f.to_string_lossy().to_string()).unwrap_or("无标题".to_string());
                                             let file_path = completion.path.parent().map(|p| p.to_string_lossy().to_string());
 
                                             ListItem::new(completion.id)

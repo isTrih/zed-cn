@@ -89,7 +89,7 @@ impl SlashCommand for PromptSlashCommand {
                     .read_with(cx, |store, cx| {
                         let prompt_id = store
                             .id_for_title(&title)
-                            .with_context(|| format!("no prompt found with title {:?}", title))?;
+                            .with_context(|| format!("未找到标题为 {:?} 的提示", title))?;
                         anyhow::Ok(store.load(prompt_id, cx))
                     })??
                     .await?;

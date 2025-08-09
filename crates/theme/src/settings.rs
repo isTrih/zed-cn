@@ -78,9 +78,9 @@ impl From<String> for UiDensity {
 impl From<UiDensity> for String {
     fn from(val: UiDensity) -> Self {
         match val {
-            UiDensity::Compact => "compact".to_string(),
-            UiDensity::Default => "default".to_string(),
-            UiDensity::Comfortable => "comfortable".to_string(),
+            UiDensity::Compact => "紧凑".to_string(),
+            UiDensity::Default => "默认".to_string(),
+            UiDensity::Comfortable => "舒适".to_string(),
         }
     }
 }

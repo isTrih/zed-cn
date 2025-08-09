@@ -300,7 +300,7 @@ async fn handle_liveness_probe(app_state: Option<Extension<Arc<AppState>>>) -> R
         state.db.get_all_users(0, 1).await?;
     }
 
-    Ok("ok".to_string())
+    Ok("好的".to_string())
 }
 
 pub fn init_tracing(config: &Config) -> Option<()> {

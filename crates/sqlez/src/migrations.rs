@@ -25,7 +25,7 @@ impl Connection {
             );
         }
         self.last_error()
-            .with_context(|| format!("Prepare call failed for query:\n{}", sql))?;
+            .with_context(|| format!("准备查询调用失败：\n{}", sql))?;
 
         Ok(())
     }

@@ -218,10 +218,10 @@ impl ExtensionManifest {
             let manifest_content = fs
                 .load(&extension_manifest_path)
                 .await
-                .with_context(|| format!("failed to load {extension_name} extension.json"))?;
+                .with_context(|| format!("无法加载 {extension_name} 扩展.json"))?;
             let manifest_json = serde_json::from_str::<OldExtensionManifest>(&manifest_content)
                 .with_context(|| {
-                    format!("invalid extension.json for extension {extension_name}")
+                    format!("扩展 {extension_name} 的 extension.json 无效")
                 })?;
 
             Ok(manifest_from_old_manifest(manifest_json, extension_name))
@@ -230,7 +230,7 @@ impl ExtensionManifest {
             let manifest_content = fs
                 .load(&extension_manifest_path)
                 .await
-                .with_context(|| format!("failed to load {extension_name} extension.toml"))?;
+                .with_context(|| format!("无法加载 {extension_name} 扩展.toml"))?;
             toml::from_str(&manifest_content)
                 .with_context(|| format!("invalid extension.toml for extension {extension_name}"))
         }

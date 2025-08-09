@@ -128,7 +128,7 @@ impl CommitTooltip {
                 author_name: blame
                     .author
                     .clone()
-                    .unwrap_or("<no name>".to_string())
+                    .unwrap_or("<无名称>".to_string())
                     .into(),
                 author_email: blame.author_mail.clone().unwrap_or("".to_string()).into(),
                 message: details,
@@ -349,7 +349,7 @@ fn blame_entry_timestamp(blame_entry: &BlameEntry, format: time_format::Timestam
                 format,
             )
         }
-        Err(_) => "Error parsing date".to_string(),
+        Err(_) => "解析日期时出错".to_string(),
     }
 }
 

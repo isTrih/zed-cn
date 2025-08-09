@@ -49,11 +49,11 @@ impl GitHostingProvider for Bitbucket {
     }
 
     fn format_line_number(&self, line: u32) -> String {
-        format!("lines-{line}")
+        format!("行-{line}")
     }
 
     fn format_line_numbers(&self, start_line: u32, end_line: u32) -> String {
-        format!("lines-{start_line}:{end_line}")
+        format!("行-{start_line}:{end_line}")
     }
 
     fn parse_remote_url(&self, url: &str) -> Option<ParsedGitRemote> {

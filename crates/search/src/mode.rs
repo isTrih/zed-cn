@@ -18,7 +18,7 @@ impl SearchMode {
         }
     }
     pub(crate) fn tooltip(&self) -> SharedString {
-        format!("Activate {} Mode", self.label()).into()
+        format!("激活 {} 模式", self.label()).into()
     }
     pub(crate) fn action(&self) -> Box<dyn Action> {
         match self {

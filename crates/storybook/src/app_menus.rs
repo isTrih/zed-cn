@@ -5,6 +5,6 @@ pub fn app_menus() -> Vec<Menu> {
 
     vec![Menu {
         name: "Storybook".into(),
-        items: vec![MenuItem::action("Quit", Quit)],
+        items: vec![MenuItem::action("退出", Quit)],
     }]
 }

@@ -1071,7 +1071,7 @@ impl TextThreadEditor {
 
                         let (label, spinner, note) = match message.role {
                             Role::User => (
-                                Label::new("You").color(Color::Default).into_any_element(),
+                                Label::new("你").color(Color::Default).into_any_element(),
                                 None,
                                 None,
                             ),
@@ -1113,7 +1113,7 @@ impl TextThreadEditor {
                                 (animated_label, spinner, note)
                             }
                             Role::System => (
-                                Label::new("System")
+                                Label::new("系统")
                                     .color(Color::Warning)
                                     .into_any_element(),
                                 None,

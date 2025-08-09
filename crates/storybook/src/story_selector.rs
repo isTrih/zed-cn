@@ -86,7 +86,7 @@ impl FromStr for StorySelector {
 
         if let Some((_, story)) = story.split_once("components/") {
             let component_story = ComponentStory::from_str(story)
-                .with_context(|| format!("story not found for component '{story}'"))?;
+                .with_context(|| format!("未找到组件 '{story}' 的故事"))?;
 
             return Ok(Self::Component(component_story));
         }

@@ -134,7 +134,7 @@ fn distance_string(
         }
         .to_string()
     } else if distance < 90 && include_seconds {
-        "1 minute".to_string()
+        "1 分钟".to_string()
     } else if distance < 30 {
         if hide_prefix {
             "a minute"
@@ -143,9 +143,9 @@ fn distance_string(
         }
         .to_string()
     } else if distance < 90 {
-        "1 minute".to_string()
+        "1 分钟".to_string()
     } else if distance < 2_700 {
-        format!("{} minutes", minutes)
+        format!("{} 分钟", minutes)
     } else if distance < 5_400 {
         if hide_prefix {
             "1 hour"
@@ -155,15 +155,15 @@ fn distance_string(
         .to_string()
     } else if distance < 86_400 {
         if hide_prefix {
-            format!("{} hours", hours)
+            format!("{} 小时", hours)
         } else {
-            format!("about {} hours", hours)
+            format!("大约 {} 小时", hours)
         }
         .to_string()
     } else if distance < 172_800 {
-        "1 day".to_string()
+        "1 天".to_string()
     } else if distance < 2_592_000 {
-        format!("{} days", days)
+        format!("{} 天", days)
     } else if distance < 5_184_000 {
         if hide_prefix {
             "1 month"
@@ -179,7 +179,7 @@ fn distance_string(
         }
         .to_string()
     } else if distance < 31_540_000 {
-        format!("{} months", months)
+        format!("{} 月", months)
     } else if distance < 39_425_000 {
         if hide_prefix {
             "1 year"
@@ -202,23 +202,23 @@ fn distance_string(
 
         if remaining_months < 3 {
             if hide_prefix {
-                format!("{} years", years)
+                format!("{} 年", years)
             } else {
-                format!("about {} years", years)
+                format!("大约 {} 年", years)
             }
             .to_string()
         } else if remaining_months < 9 {
             if hide_prefix {
-                format!("{} years", years)
+                format!("{} 年", years)
             } else {
-                format!("over {} years", years)
+                format!("超过 {} 年", years)
             }
             .to_string()
         } else {
             if hide_prefix {
-                format!("{} years", years + 1)
+                format!("{} 年", years + 1)
             } else {
-                format!("almost {} years", years + 1)
+                format!("几乎 {} 年", years + 1)
             }
             .to_string()
         }

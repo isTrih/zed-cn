@@ -1744,7 +1744,7 @@ impl InlineAssist {
                             if let CodegenStatus::Error(error) = codegen.read(cx).status(cx) {
                                 if assist.decorations.is_none() {
                                     if let Some(workspace) = assist.workspace.upgrade() {
-                                        let error = format!("Inline assistant error: {}", error);
+                                        let error = format!("内联助手错误：{}", error);
                                         workspace.update(cx, |workspace, cx| {
                                             struct InlineAssistantError;
 

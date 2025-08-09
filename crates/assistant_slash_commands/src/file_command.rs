@@ -430,7 +430,7 @@ pub fn build_entry_output_section(
     let mut label = if let Some(path) = path {
         path.to_string_lossy().to_string()
     } else {
-        "untitled".to_string()
+        "无标题".to_string()
     };
     if let Some(line_range) = line_range {
         write!(label, ":{}-{}", line_range.start, line_range.end).unwrap();

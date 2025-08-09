@@ -1355,7 +1355,7 @@ fn load_user_themes_in_background(fs: Arc<dyn fs::Fs>, cx: &mut App) {
                     }
                     None => {
                         fs.create_dir(themes_dir).await.with_context(|| {
-                            format!("Failed to create themes dir at path {themes_dir:?}")
+                            format!("无法在路径 {themes_dir:?} 创建主题目录")
                         })?;
                     }
                 }

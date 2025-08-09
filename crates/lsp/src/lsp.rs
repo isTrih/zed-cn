@@ -721,8 +721,8 @@ impl LanguageServer {
                                 "diagnostics".to_string(),
                                 "isPreferred".to_string(),
                                 "disabled".to_string(),
-                                "edit".to_string(),
-                                "command".to_string(),
+                                "编辑".to_string(),
+                                "命令".to_string(),
                             ],
                         }),
                         ..Default::default()
@@ -733,8 +733,8 @@ impl LanguageServer {
                             resolve_support: Some(CompletionItemCapabilityResolveSupport {
                                 properties: vec![
                                     "additionalTextEdits".to_string(),
-                                    "command".to_string(),
-                                    "documentation".to_string(),
+                                    "命令".to_string(),
+                                    "文档".to_string(),
                                     // NB: Do not have this resolved, otherwise Zed becomes slow to complete things
                                     // "textEdit".to_string(),
                                 ],
@@ -1876,7 +1876,7 @@ mod tests {
 
         fake.notify::<notification::ShowMessage>(&ShowMessageParams {
             typ: MessageType::ERROR,
-            message: "ok".to_string(),
+            message: "好的".to_string(),
         });
         fake.notify::<notification::PublishDiagnostics>(&PublishDiagnosticsParams {
             uri: Url::from_str("file://b/c").unwrap(),

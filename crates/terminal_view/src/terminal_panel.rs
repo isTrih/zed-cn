@@ -44,7 +44,7 @@ use workspace::{
 use anyhow::{Context as _, Result, anyhow};
 use zed_actions::assistant::InlineAssist;
 
-const TERMINAL_PANEL_KEY: &str = "TerminalPanel";
+const TERMINAL_PANEL_KEY: &str = "终端面板";
 
 actions!(
     terminal_panel,
@@ -162,7 +162,7 @@ impl TerminalPanel {
                                         // hence we focus that first. Otherwise, we'd end up without a focused element, as
                                         // context menu will be gone the moment we spawn the modal.
                                         .action(
-                                            "Spawn task",
+                                            "生成任务",
                                             zed_actions::Spawn::modal().boxed_clone(),
                                         )
                                 });
@@ -208,7 +208,7 @@ impl TerminalPanel {
                             }))
                             .tooltip(move |window, cx| {
                                 Tooltip::for_action(
-                                    if zoomed { "Zoom Out" } else { "Zoom In" },
+                                    if zoomed { "缩小" } else { "放大" },
                                     &ToggleZoom,
                                     window,
                                     cx,
@@ -1422,7 +1422,7 @@ impl Panel for TerminalPanel {
     }
 
     fn persistent_name() -> &'static str {
-        "TerminalPanel"
+        "终端面板"
     }
 
     fn icon(&self, _window: &Window, cx: &App) -> Option<IconName> {
@@ -1436,7 +1436,7 @@ impl Panel for TerminalPanel {
     }
 
     fn icon_tooltip(&self, _window: &Window, _cx: &App) -> Option<&'static str> {
-        Some("Terminal Panel")
+        Some("终端面板")
     }
 
     fn toggle_action(&self) -> Box<dyn gpui::Action> {
@@ -1497,7 +1497,7 @@ impl Render for InlineAssistTabBarButton {
             }))
             .tooltip(move |window, cx| {
                 Tooltip::for_action_in(
-                    "Inline Assist",
+                    "内联助手",
                     &InlineAssist::default(),
                     &focus_handle,
                     window,

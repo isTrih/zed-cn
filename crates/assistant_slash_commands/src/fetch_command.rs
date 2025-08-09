@@ -172,7 +172,7 @@ impl SlashCommand for FetchSlashCommand {
                 sections: vec![SlashCommandOutputSection {
                     range,
                     icon: IconName::ToolWeb,
-                    label: format!("fetch {}", url).into(),
+                    label: format!("获取 {}", url).into(),
                     metadata: None,
                 }],
                 run_commands_in_text: false,

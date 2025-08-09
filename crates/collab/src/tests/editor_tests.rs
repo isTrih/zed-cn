@@ -643,7 +643,7 @@ async fn test_collaborating_with_code_actions(
 
             Ok(Some(vec![lsp::CodeActionOrCommand::CodeAction(
                 lsp::CodeAction {
-                    title: "Inline into all callers".to_string(),
+                    title: "内联到所有调用者".to_string(),
                     edit: Some(lsp::WorkspaceEdit {
                         changes: Some(
                             [
@@ -715,7 +715,7 @@ async fn test_collaborating_with_code_actions(
     fake_language_server.set_request_handler::<lsp::request::CodeActionResolveRequest, _, _>(
         |_, _| async move {
             Ok(lsp::CodeAction {
-                title: "Inline into all callers".to_string(),
+                title: "内联到所有调用者".to_string(),
                 edit: Some(lsp::WorkspaceEdit {
                     changes: Some(
                         [
@@ -3229,7 +3229,7 @@ async fn test_git_blame_is_forwarded(cx_a: &mut TestAppContext, cx_b: &mut TestA
         blame.update(cx, |blame, _| {
             for (idx, entry) in entries.iter().flatten().enumerate() {
                 let details = blame.details_for_entry(entry).unwrap();
-                assert_eq!(details.message, format!("message for idx-{}", idx));
+                assert_eq!(details.message, format!("消息索引-{}", idx));
                 assert_eq!(
                     details.permalink.unwrap().to_string(),
                     format!("https://github.com/zed-industries/zed/commit/{}", entry.sha)

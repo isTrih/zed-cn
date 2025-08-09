@@ -126,10 +126,10 @@ impl Render for ProjectSharedNotification {
         div().size_full().font(ui_font).child(
             CollabNotification::new(
                 self.owner.avatar_uri.clone(),
-                Button::new("open", "Open").on_click(cx.listener(move |this, _event, _, cx| {
+                Button::new("open", "打开").on_click(cx.listener(move |this, _event, _, cx| {
                     this.join(cx);
                 })),
-                Button::new("dismiss", "Dismiss").on_click(cx.listener(
+                Button::new("dismiss", "关闭").on_click(cx.listener(
                     move |this, _event, _, cx| {
                         this.dismiss(cx);
                     },
@@ -137,7 +137,7 @@ impl Render for ProjectSharedNotification {
             )
             .child(Label::new(self.owner.github_login.clone()))
             .child(Label::new(format!(
-                "is sharing a project in Zed{}",
+                "正在在 Zed 中分享一个项目{}",
                 if self.worktree_root_names.is_empty() {
                     ""
                 } else {

@@ -180,7 +180,7 @@ impl TestPlatform {
         let (tx, rx) = oneshot::channel();
         let answers: Vec<String> = answers.iter().map(|s| s.label().to_string()).collect();
         self.background_executor()
-            .set_waiting_hint(Some(format!("PROMPT: {:?} {:?}", msg, detail)));
+            .set_waiting_hint(Some(format!("提示：{:?} {:?}", msg, detail)));
         self.prompts
             .borrow_mut()
             .multiple_choice

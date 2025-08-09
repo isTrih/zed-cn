@@ -121,14 +121,14 @@ pub async fn validate_api_token<B>(req: Request<B>, next: Next<B>) -> impl IntoR
         .ok_or_else(|| {
             Error::http(
                 StatusCode::BAD_REQUEST,
-                "missing authorization header".to_string(),
+                "缺少授权标头".to_string(),
             )
         })?
         .strip_prefix("token ")
         .ok_or_else(|| {
             Error::http(
                 StatusCode::BAD_REQUEST,
-                "invalid authorization header".to_string(),
+                "无效的授权标头".to_string(),
             )
         })?;
 
@@ -137,7 +137,7 @@ pub async fn validate_api_token<B>(req: Request<B>, next: Next<B>) -> impl IntoR
     if token != state.config.api_token {
         Err(Error::http(
             StatusCode::UNAUTHORIZED,
-            "invalid authorization token".to_string(),
+            "无效的授权令牌".to_string(),
         ))?
     }
 
@@ -274,13 +274,13 @@ async fn create_access_token(
             } else {
                 return Err(Error::http(
                     StatusCode::UNPROCESSABLE_ENTITY,
-                    format!("user {impersonate} does not exist"),
+                    format!("用户 {impersonate} 不存在"),
                 ));
             }
         } else {
             return Err(Error::http(
                 StatusCode::UNAUTHORIZED,
-                "you do not have permission to impersonate other users".to_string(),
+                "您没有权限冒充其他用户".to_string(),
             ));
         }
     }

@@ -11,7 +11,7 @@ use gpui::StyleRefinement;
 /// ```
 /// use ui::prelude::*;
 ///
-/// Label::new("Hello, World!");
+/// Label::new("你好，世界！");
 /// ```
 ///
 /// **A colored label**, for example labeling a dangerous action:
@@ -19,7 +19,7 @@ use gpui::StyleRefinement;
 /// ```
 /// use ui::prelude::*;
 ///
-/// let my_label = Label::new("Delete").color(Color::Error);
+/// let my_label = Label::new("删除").color(Color::Error);
 /// ```
 ///
 /// **A label with a strikethrough**, for example labeling something that has been deleted:
@@ -27,7 +27,7 @@ use gpui::StyleRefinement;
 /// ```
 /// use ui::prelude::*;
 ///
-/// let my_label = Label::new("Deleted").strikethrough(true);
+/// let my_label = Label::new("已删除").strikethrough(true);
 /// ```
 #[derive(IntoElement, RegisterComponent)]
 pub struct Label {
@@ -43,7 +43,7 @@ impl Label {
     /// ```
     /// use ui::prelude::*;
     ///
-    /// let my_label = Label::new("Hello, World!");
+    /// let my_label = Label::new("你好，世界！");
     /// ```
     pub fn new(label: impl Into<SharedString>) -> Self {
         Self {
@@ -77,7 +77,7 @@ impl LabelCommon for Label {
     /// ```
     /// use ui::prelude::*;
     ///
-    /// let my_label = Label::new("Hello, World!").size(LabelSize::Small);
+    /// let my_label = Label::new("你好，世界！").size(LabelSize::Small);
     /// ```
     fn size(mut self, size: LabelSize) -> Self {
         self.base = self.base.size(size);
@@ -91,7 +91,7 @@ impl LabelCommon for Label {
     /// ```
     /// use ui::prelude::*;
     ///
-    /// let my_label = Label::new("Hello, World!").weight(FontWeight::Bold);
+    /// let my_label = Label::new("你好，世界！").weight(FontWeight::Bold);
     /// ```
     fn weight(mut self, weight: gpui::FontWeight) -> Self {
         self.base = self.base.weight(weight);
@@ -105,7 +105,7 @@ impl LabelCommon for Label {
     /// ```
     /// use ui::prelude::*;
     ///
-    /// let my_label = Label::new("Hello, World!").line_height_style(LineHeightStyle::UiLabel);
+    /// let my_label = Label::new("你好，世界！").line_height_style(LineHeightStyle::UiLabel);
     /// ```
     fn line_height_style(mut self, line_height_style: LineHeightStyle) -> Self {
         self.base = self.base.line_height_style(line_height_style);
@@ -119,7 +119,7 @@ impl LabelCommon for Label {
     /// ```
     /// use ui::prelude::*;
     ///
-    /// let my_label = Label::new("Hello, World!").color(Color::Accent);
+    /// let my_label = Label::new("你好，世界！").color(Color::Accent);
     /// ```
     fn color(mut self, color: Color) -> Self {
         self.base = self.base.color(color);
@@ -133,7 +133,7 @@ impl LabelCommon for Label {
     /// ```
     /// use ui::prelude::*;
     ///
-    /// let my_label = Label::new("Hello, World!").strikethrough(true);
+    /// let my_label = Label::new("你好，世界！").strikethrough(true);
     /// ```
     fn strikethrough(mut self) -> Self {
         self.base = self.base.strikethrough();
@@ -147,7 +147,7 @@ impl LabelCommon for Label {
     /// ```
     /// use ui::prelude::*;
     ///
-    /// let my_label = Label::new("Hello, World!").italic(true);
+    /// let my_label = Label::new("你好，世界！").italic(true);
     /// ```
     fn italic(mut self) -> Self {
         self.base = self.base.italic();
@@ -161,7 +161,7 @@ impl LabelCommon for Label {
     /// ```
     /// use ui::prelude::*;
     ///
-    /// let my_label = Label::new("Hello, World!").alpha(0.5);
+    /// let my_label = Label::new("你好，世界！").alpha(0.5);
     /// ```
     fn alpha(mut self, alpha: f32) -> Self {
         self.base = self.base.alpha(alpha);

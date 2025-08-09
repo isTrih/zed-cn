@@ -399,7 +399,7 @@ fn load_config(name: &str) -> LanguageConfig {
 
     #[allow(unused_mut)]
     let mut config: LanguageConfig = ::toml::from_str(&config_toml)
-        .with_context(|| format!("failed to load config.toml for language {name:?}"))
+        .with_context(|| format!("加载语言 {name:?} 的 config.toml 失败"))
         .unwrap();
 
     #[cfg(not(any(feature = "load-grammars", test)))]

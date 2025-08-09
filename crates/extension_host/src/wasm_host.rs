@@ -758,7 +758,7 @@ impl WasmExtension {
         wasm_host
             .load_extension(wasm_bytes, manifest, cx.background_executor().clone())
             .await
-            .with_context(|| format!("failed to load wasm extension {}", manifest.id))
+            .with_context(|| format!("无法加载 wasm 扩展 {}", manifest.id))
     }
 
     pub async fn call<T, Fn>(&self, f: Fn) -> Result<T>

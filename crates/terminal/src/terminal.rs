@@ -295,13 +295,13 @@ impl TerminalError {
                     "<none specified, using home directory> {}",
                     dir.into_os_string().to_string_lossy()
                 ),
-                None => "<none specified, could not find home directory>".to_string(),
+                None => "<未指定，找不到主目录>".to_string(),
             })
     }
 
     pub fn fmt_shell(&self) -> String {
         match &self.shell {
-            Shell::System => "<system defined shell>".to_string(),
+            Shell::System => "<系统定义的 Shell>".to_string(),
             Shell::Program(s) => s.to_string(),
             Shell::WithArguments {
                 program,
@@ -1815,7 +1815,7 @@ impl Terminal {
                             };
                             format!("{process_file} — {process_name}")
                         })
-                        .unwrap_or_else(|| "Terminal".to_string())
+                        .unwrap_or_else(|| "终端".to_string())
                 }),
         }
     }
@@ -1927,7 +1927,7 @@ fn task_summary(task: &TaskState, error_code: Option<i32>) -> (bool, String, Str
     let (success, task_line) = match error_code {
         Some(0) => (
             true,
-            format!("{TASK_DELIMITER}Task `{escaped_full_label}` finished successfully"),
+            format!("{TASK_DELIMITER}任务 `{escaped_full_label}` 成功完成"),
         ),
         Some(error_code) => (
             false,
@@ -1937,7 +1937,7 @@ fn task_summary(task: &TaskState, error_code: Option<i32>) -> (bool, String, Str
         ),
         None => (
             false,
-            format!("{TASK_DELIMITER}Task `{escaped_full_label}` finished"),
+            format!("{TASK_DELIMITER}任务 `{escaped_full_label}` 完成"),
         ),
     };
     let escaped_command_label = task.command_label.replace("\r\n", "\r").replace('\n', "\r");

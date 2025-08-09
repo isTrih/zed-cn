@@ -387,13 +387,13 @@ async fn fetch_extension_manifest(
         .await
         .map(|data| data.into_bytes())
         .with_context(|| {
-            format!("failed to download manifest for extension {extension_id} version {version}")
+            format!("下载扩展 {extension_id} 版本 {version} 的清单失败")
         })?
         .to_vec();
     let manifest =
         serde_json::from_slice::<ExtensionApiManifest>(&manifest_bytes).with_context(|| {
             format!(
-                "invalid manifest for extension {extension_id} version {version}: {}",
+                "扩展 {extension_id} 版本 {version} 的清单无效：{}",
                 String::from_utf8_lossy(&manifest_bytes)
             )
         })?;
@@ -403,7 +403,7 @@ async fn fetch_extension_manifest(
     let published_at = time::OffsetDateTime::from_unix_timestamp_nanos(published_at.as_nanos())?;
     let published_at = PrimitiveDateTime::new(published_at.date(), published_at.time());
     let version = semver::Version::parse(&manifest.version).with_context(|| {
-        format!("invalid version for extension {extension_id} version {version}")
+        format!("扩展 {extension_id} 版本 {version} 的版本无效")
     })?;
     Ok(NewExtensionVersion {
         name: manifest.name,

@@ -87,8 +87,8 @@ impl Prettier {
         let path_to_check_metadata = fs
             .metadata(&path_to_check)
             .await
-            .with_context(|| format!("failed to get metadata for initial path {path_to_check:?}"))?
-            .with_context(|| format!("empty metadata for initial path {path_to_check:?}"))?;
+            .with_context(|| format!("获取初始路径 {path_to_check:?} 的元数据失败"))?
+            .with_context(|| format!("初始路径 {path_to_check:?} 的元数据为空"))?;
         if !path_to_check_metadata.is_dir {
             path_to_check.pop();
         }
@@ -166,8 +166,8 @@ impl Prettier {
         let path_to_check_metadata = fs
             .metadata(&path_to_check)
             .await
-            .with_context(|| format!("failed to get metadata for initial path {path_to_check:?}"))?
-            .with_context(|| format!("empty metadata for initial path {path_to_check:?}"))?;
+            .with_context(|| format!("获取初始路径 {path_to_check:?} 的元数据失败"))?
+            .with_context(|| format!("初始路径 {path_to_check:?} 的元数据为空"))?;
         if !path_to_check_metadata.is_dir {
             path_to_check.pop();
         }
@@ -533,7 +533,7 @@ async fn has_prettier_in_node_modules(fs: &dyn Fs, path: &Path) -> anyhow::Resul
     if let Some(node_modules_location_metadata) = fs
         .metadata(&possible_node_modules_location)
         .await
-        .with_context(|| format!("fetching metadata for {possible_node_modules_location:?}"))?
+        .with_context(|| format!("获取 {possible_node_modules_location:?} 的元数据"))?
     {
         return Ok(node_modules_location_metadata.is_dir);
     }
@@ -548,18 +548,18 @@ async fn read_package_json(
     if let Some(package_json_metadata) = fs
         .metadata(&possible_package_json)
         .await
-        .with_context(|| format!("fetching metadata for package json {possible_package_json:?}"))?
+        .with_context(|| format!("获取 package json {possible_package_json:?} 的元数据"))?
     {
         if !package_json_metadata.is_dir && !package_json_metadata.is_symlink {
             let package_json_contents = fs
                 .load(&possible_package_json)
                 .await
-                .with_context(|| format!("reading {possible_package_json:?} file contents"))?;
+                .with_context(|| format!("读取 {possible_package_json:?} 文件内容"))?;
             return serde_json::from_str::<HashMap<String, serde_json::Value>>(
                 &package_json_contents,
             )
             .map(Some)
-            .with_context(|| format!("parsing {possible_package_json:?} file contents"));
+            .with_context(|| format!("解析 {possible_package_json:?} 文件内容"));
         }
     }
     Ok(None)

@@ -54,7 +54,7 @@ impl RenderOnce for ExtensionCard {
                             .items_center()
                             .justify_center()
                             .bg(cx.theme().colors().elevated_surface_background.alpha(0.8))
-                            .child(Label::new("Overridden by dev extension.")),
+                            .child(Label::new("被开发扩展覆盖。")),
                     )
                 }),
         )

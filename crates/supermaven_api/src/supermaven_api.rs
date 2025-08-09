@@ -82,7 +82,7 @@ impl SupermavenAdminApi {
             .http_client
             .send(request.body(AsyncBody::default())?)
             .await
-            .with_context(|| "Unable to get Supermaven API Key".to_string())?;
+            .with_context(|| "无法获取 Supermaven API 密钥".to_string())?;
 
         let mut body = Vec::new();
         response.body_mut().read_to_end(&mut body).await?;
@@ -103,7 +103,7 @@ impl SupermavenAdminApi {
 
         Ok(Some(
             serde_json::from_str::<SupermavenUser>(body_str)
-                .with_context(|| "Unable to parse Supermaven user response".to_string())?,
+                .with_context(|| "无法解析 Supermaven 用户响应".to_string())?,
         ))
     }
 
@@ -121,7 +121,7 @@ impl SupermavenAdminApi {
             .http_client
             .send(request)
             .await
-            .with_context(|| "Unable to create Supermaven API Key".to_string())?;
+            .with_context(|| "无法创建 Supermaven API 密钥".to_string())?;
 
         let mut body = Vec::new();
         response.body_mut().read_to_end(&mut body).await?;
@@ -134,7 +134,7 @@ impl SupermavenAdminApi {
         }
 
         serde_json::from_str::<CreateExternalUserResponse>(body_str)
-            .with_context(|| "Unable to parse Supermaven API Key response".to_string())
+            .with_context(|| "无法解析 Supermaven API 密钥响应".to_string())
     }
 
     pub async fn try_delete_user(&self, request: DeleteExternalUserRequest) -> Result<()> {
@@ -146,7 +146,7 @@ impl SupermavenAdminApi {
             .http_client
             .send(request.body(AsyncBody::default())?)
             .await
-            .with_context(|| "Unable to delete Supermaven User".to_string())?;
+            .with_context(|| "无法删除 Supermaven 用户".to_string())?;
 
         let mut body = Vec::new();
         response.body_mut().read_to_end(&mut body).await?;
@@ -197,7 +197,7 @@ pub async fn latest_release(
     let mut response = client
         .send(request.body(AsyncBody::default())?)
         .await
-        .with_context(|| "Unable to acquire Supermaven Agent".to_string())?;
+        .with_context(|| "无法获取 Supermaven 代理".to_string())?;
 
     let mut body = Vec::new();
     response.body_mut().read_to_end(&mut body).await?;
@@ -209,7 +209,7 @@ pub async fn latest_release(
     }
 
     serde_json::from_slice::<SupermavenDownloadResponse>(&body)
-        .with_context(|| "Unable to parse Supermaven Agent response".to_string())
+        .with_context(|| "无法解析 Supermaven 代理响应".to_string())
 }
 
 pub fn version_path(version: u64) -> PathBuf {
@@ -267,15 +267,15 @@ pub async fn get_supermaven_agent_path(client: Arc<dyn HttpClient>) -> Result<Pa
     let mut response = client
         .send(request.body(AsyncBody::default())?)
         .await
-        .with_context(|| "Unable to download Supermaven Agent".to_string())?;
+        .with_context(|| "无法下载 Supermaven 代理".to_string())?;
 
     let mut file = File::create(&binary_path)
         .await
-        .with_context(|| format!("Unable to create file at {:?}", binary_path))?;
+        .with_context(|| format!("无法在 {:?} 创建文件", binary_path))?;
 
     futures::io::copy(BufReader::new(response.body_mut()), &mut file)
         .await
-        .with_context(|| format!("Unable to write binary to file at {:?}", binary_path))?;
+        .with_context(|| format!("无法将二进制写入文件 {:?}", binary_path))?;
 
     make_file_executable(&binary_path).await?;
 

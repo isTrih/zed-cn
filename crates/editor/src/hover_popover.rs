@@ -1802,7 +1802,7 @@ mod tests {
                                     range: new_type_target_range,
                                 }),
                                 tooltip: Some(lsp::InlayHintLabelPartTooltip::String(format!(
-                                    "A tooltip for `{new_type_label}`"
+                                    "对 `{new_type_label}` 的工具提示"
                                 ))),
                                 ..Default::default()
                             },
@@ -1819,7 +1819,7 @@ mod tests {
                                 tooltip: Some(lsp::InlayHintLabelPartTooltip::MarkupContent(
                                     lsp::MarkupContent {
                                         kind: lsp::MarkupKind::Markdown,
-                                        value: format!("A tooltip for `{struct_label}`"),
+                                        value: format!("对 `{struct_label}` 的工具提示"),
                                     },
                                 )),
                                 ..Default::default()
@@ -1926,7 +1926,7 @@ mod tests {
             );
             assert_eq!(
                 popover.get_rendered_text(cx),
-                format!("A tooltip for {struct_label}"),
+                format!("对 {struct_label} 的工具提示"),
                 "Rendered markdown element should remove backticks from text"
             );
         });

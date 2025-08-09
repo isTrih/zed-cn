@@ -28,7 +28,7 @@ use super::button_icon::ButtonIcon;
 /// ```
 /// use ui::prelude::*;
 ///
-/// Button::new("button_id", "Click me!")
+/// Button::new("button_id", "点击我！")
 ///     .on_click(|event, window, cx| {
 ///         // Handle click event
 ///     });
@@ -41,7 +41,7 @@ use super::button_icon::ButtonIcon;
 /// ```
 /// use ui::prelude::*;
 ///
-/// Button::new("button_id", "Click me!")
+/// Button::new("button_id", "点击我！")
 ///     .icon(IconName::Check)
 ///     .selected(true)
 ///     .on_click(|event, window, cx| {
@@ -55,7 +55,7 @@ use super::button_icon::ButtonIcon;
 /// use ui::prelude::*;
 /// use ui::TintColor;
 ///
-/// Button::new("button_id", "Click me!")
+/// Button::new("button_id", "点击我！")
 ///     .selected(true)
 ///     .selected_style(ButtonStyle::Tinted(TintColor::Accent))
 ///     .on_click(|event, window, cx| {
@@ -70,7 +70,7 @@ use super::button_icon::ButtonIcon;
 /// ```
 /// use ui::prelude::*;
 ///
-/// let button = Button::new("button_id", "Click me!")
+/// let button = Button::new("button_id", "点击我！")
 ///     .full_width()
 ///     .on_click(|event, window, cx| {
 ///         // Handle click event
@@ -227,7 +227,7 @@ impl Toggleable for Button {
     /// ```
     /// use ui::prelude::*;
     ///
-    /// Button::new("button_id", "Click me!")
+    /// Button::new("button_id", "点击我！")
     ///     .selected(true)
     ///     .on_click(|event, window, cx| {
     ///         // Handle click event
@@ -250,7 +250,7 @@ impl SelectableButton for Button {
     /// use ui::prelude::*;
     /// use ui::TintColor;
     ///
-    /// Button::new("button_id", "Click me!")
+    /// Button::new("button_id", "点击我！")
     ///     .selected(true)
     ///     .selected_style(ButtonStyle::Tinted(TintColor::Accent))
     ///     .on_click(|event, window, cx| {
@@ -275,7 +275,7 @@ impl Disableable for Button {
     /// ```
     /// use ui::prelude::*;
     ///
-    /// Button::new("button_id", "Click me!")
+    /// Button::new("button_id", "点击我！")
     ///     .disabled(true)
     ///     .on_click(|event, window, cx| {
     ///         // Handle click event
@@ -316,7 +316,7 @@ impl FixedWidth for Button {
     /// ```
     /// use ui::prelude::*;
     ///
-    /// Button::new("button_id", "Click me!")
+    /// Button::new("button_id", "点击我！")
     ///     .width(px(100.).into())
     ///     .on_click(|event, window, cx| {
     ///         // Handle click event
@@ -336,7 +336,7 @@ impl FixedWidth for Button {
     /// ```
     /// use ui::prelude::*;
     ///
-    /// Button::new("button_id", "Click me!")
+    /// Button::new("button_id", "点击我！")
     ///     .full_width()
     ///     .on_click(|event, window, cx| {
     ///         // Handle click event
@@ -380,7 +380,7 @@ impl ButtonCommon for Button {
     /// use ui::prelude::*;
     /// use ui::Tooltip;
     ///
-    /// Button::new("button_id", "Click me!")
+    /// Button::new("button_id", "点击我！")
     ///     .tooltip(Tooltip::text_f("This is a tooltip", cx))
     ///     .on_click(|event, window, cx| {
     ///         // Handle click event

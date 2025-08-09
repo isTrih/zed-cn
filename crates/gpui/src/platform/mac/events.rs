@@ -319,28 +319,28 @@ unsafe fn parse_keystroke(native_event: id) -> Keystroke {
         let key = match first_char {
             Some(SPACE_KEY) => {
                 key_char = Some(" ".to_string());
-                "space".to_string()
+                "空格".to_string()
             }
             Some(TAB_KEY) => {
                 key_char = Some("\t".to_string());
-                "tab".to_string()
+                "Tab".to_string()
             }
             Some(ENTER_KEY) | Some(NUMPAD_ENTER_KEY) => {
                 key_char = Some("\n".to_string());
-                "enter".to_string()
+                "回车".to_string()
             }
-            Some(BACKSPACE_KEY) => "backspace".to_string(),
-            Some(ESCAPE_KEY) => "escape".to_string(),
-            Some(SHIFT_TAB_KEY) => "tab".to_string(),
-            Some(NSUpArrowFunctionKey) => "up".to_string(),
-            Some(NSDownArrowFunctionKey) => "down".to_string(),
-            Some(NSLeftArrowFunctionKey) => "left".to_string(),
-            Some(NSRightArrowFunctionKey) => "right".to_string(),
-            Some(NSPageUpFunctionKey) => "pageup".to_string(),
-            Some(NSPageDownFunctionKey) => "pagedown".to_string(),
-            Some(NSHomeFunctionKey) => "home".to_string(),
-            Some(NSEndFunctionKey) => "end".to_string(),
-            Some(NSDeleteFunctionKey) => "delete".to_string(),
+            Some(BACKSPACE_KEY) => "退格".to_string(),
+            Some(ESCAPE_KEY) => "Esc".to_string(),
+            Some(SHIFT_TAB_KEY) => "Tab".to_string(),
+            Some(NSUpArrowFunctionKey) => "上".to_string(),
+            Some(NSDownArrowFunctionKey) => "下".to_string(),
+            Some(NSLeftArrowFunctionKey) => "左".to_string(),
+            Some(NSRightArrowFunctionKey) => "右".to_string(),
+            Some(NSPageUpFunctionKey) => "上一页".to_string(),
+            Some(NSPageDownFunctionKey) => "下一页".to_string(),
+            Some(NSHomeFunctionKey) => "起始位置".to_string(),
+            Some(NSEndFunctionKey) => "末尾位置".to_string(),
+            Some(NSDeleteFunctionKey) => "删除".to_string(),
             // Observed Insert==NSHelpFunctionKey not NSInsertFunctionKey.
             Some(NSHelpFunctionKey) => "insert".to_string(),
             Some(NSF1FunctionKey) => "f1".to_string(),

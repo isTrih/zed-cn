@@ -72,7 +72,7 @@ async fn test_lsp_logs(cx: &mut TestAppContext) {
     let mut cx = VisualTestContext::from_window(*window, cx);
 
     language_server.notify::<lsp::notification::LogMessage>(&lsp::LogMessageParams {
-        message: "hello from the server".into(),
+        message: "来自服务器的问候".into(),
         typ: lsp::MessageType::INFO,
     });
     cx.executor().run_until_parked();

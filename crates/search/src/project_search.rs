@@ -816,7 +816,7 @@ impl ProjectSearchView {
 
         let included_files_editor = cx.new(|cx| {
             let mut editor = Editor::single_line(window, cx);
-            editor.set_placeholder_text("Include: crates/**/*.toml", cx);
+            editor.set_placeholder_text("包含：crates/**/*.toml", cx);
 
             editor
         });
@@ -829,7 +829,7 @@ impl ProjectSearchView {
 
         let excluded_files_editor = cx.new(|cx| {
             let mut editor = Editor::single_line(window, cx);
-            editor.set_placeholder_text("Exclude: vendor/*, *.lock", cx);
+            editor.set_placeholder_text("排除: vendor/*, *.lock", cx);
 
             editor
         });

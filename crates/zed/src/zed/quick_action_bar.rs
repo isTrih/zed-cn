@@ -144,7 +144,7 @@ impl Render for QuickActionBar {
                 !self.buffer_search_bar.read(cx).is_dismissed(),
                 Box::new(buffer_search::Deploy::find()),
                 focus_handle.clone(),
-                "Buffer Search",
+                "缓冲区搜索",
                 {
                     let buffer_search_bar = self.buffer_search_bar.clone();
                     move |_, window, cx| {
@@ -157,12 +157,12 @@ impl Render for QuickActionBar {
         });
 
         let assistant_button = QuickActionBarButton::new(
-            "toggle inline assistant",
+            "切换内联助手",
             IconName::ZedAssistant,
             false,
             Box::new(InlineAssist::default()),
             focus_handle.clone(),
-            "Inline Assist",
+            "内联助手",
             move |_, window, cx| {
                 window.dispatch_action(Box::new(InlineAssist::default()), cx);
             },
@@ -254,7 +254,7 @@ impl Render for QuickActionBar {
                         .icon_size(IconSize::Small)
                         .style(ButtonStyle::Subtle)
                         .toggle_state(self.toggle_selections_handle.is_deployed()),
-                    Tooltip::text("Selection Controls"),
+                    Tooltip::text("选择控制"),
                 )
                 .with_handle(self.toggle_selections_handle.clone())
                 .anchor(Corner::TopRight)
@@ -262,22 +262,22 @@ impl Render for QuickActionBar {
                     let focus = focus.clone();
                     let menu = ContextMenu::build(window, cx, move |menu, _, _| {
                         menu.context(focus.clone())
-                            .action("Select All", Box::new(SelectAll))
+                            .action("全选", Box::new(SelectAll))
                             .action(
                                 "Select Next Occurrence",
                                 Box::new(SelectNext {
                                     replace_newest: false,
                                 }),
                             )
-                            .action("Expand Selection", Box::new(SelectLargerSyntaxNode))
-                            .action("Shrink Selection", Box::new(SelectSmallerSyntaxNode))
-                            .action("Add Cursor Above", Box::new(AddSelectionAbove))
-                            .action("Add Cursor Below", Box::new(AddSelectionBelow))
+                            .action("扩展选择", Box::new(SelectLargerSyntaxNode))
+                            .action("收缩选择", Box::new(SelectSmallerSyntaxNode))
+                            .action("在上方添加光标", Box::new(AddSelectionAbove))
+                            .action("在下方添加光标", Box::new(AddSelectionBelow))
                             .separator()
-                            .action("Go to Symbol", Box::new(ToggleOutline))
-                            .action("Go to Line/Column", Box::new(ToggleGoToLine))
+                            .action("转到符号", Box::new(ToggleOutline))
+                            .action("转到行/列", Box::new(ToggleGoToLine))
                             .separator()
-                            .action("Next Problem", Box::new(GoToDiagnostic::default()))
+                            .action("下一个问题", Box::new(GoToDiagnostic::default()))
                             .action(
                                 "Previous Problem",
                                 Box::new(GoToPreviousDiagnostic::default()),
@@ -290,9 +290,9 @@ impl Render for QuickActionBar {
                                 Box::new(GoToPreviousHunk),
                             )
                             .separator()
-                            .action("Move Line Up", Box::new(MoveLineUp))
-                            .action("Move Line Down", Box::new(MoveLineDown))
-                            .action("Duplicate Selection", Box::new(DuplicateLineDown))
+                            .action("向上移动行", Box::new(MoveLineUp))
+                            .action("向下移动行", Box::new(MoveLineDown))
+                            .action("复制选择", Box::new(DuplicateLineDown))
                     });
                     Some(menu)
                 })
@@ -309,7 +309,7 @@ impl Render for QuickActionBar {
                         .icon_size(IconSize::Small)
                         .style(ButtonStyle::Subtle)
                         .toggle_state(self.toggle_settings_handle.is_deployed()),
-                    Tooltip::text("Editor Controls"),
+                    Tooltip::text("编辑器控制"),
                 )
                 .anchor(Corner::TopRight)
                 .with_handle(self.toggle_settings_handle.clone())

@@ -896,7 +896,7 @@ impl Render for PanelButtons {
                                     {
                                         let panel = panel.clone();
                                         menu = menu.entry(
-                                            format!("Dock {}", position.label()),
+                                            format!("面板 {}", position.label()),
                                             None,
                                             move |window, cx| {
                                                 panel.set_position(position, window, cx);

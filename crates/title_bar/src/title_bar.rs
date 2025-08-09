@@ -390,7 +390,7 @@ impl TitleBar {
 
         if self.project.read(cx).is_disconnected(cx) {
             return Some(
-                Button::new("disconnected", "Disconnected")
+                Button::new("disconnected", "断开连接")
                     .disabled(true)
                     .color(Color::Disabled)
                     .style(ButtonStyle::Subtle)
@@ -442,7 +442,7 @@ impl TitleBar {
         let name = if let Some(name) = name {
             util::truncate_and_trailoff(name, MAX_PROJECT_NAME_LENGTH)
         } else {
-            "Open recent project".to_string()
+            "打开最近项目".to_string()
         };
 
         Button::new("project_name_trigger", name)
@@ -451,7 +451,7 @@ impl TitleBar {
             .label_size(LabelSize::Small)
             .tooltip(move |window, cx| {
                 Tooltip::for_action(
-                    "Recent Projects",
+                    "最近项目",
                     &zed_actions::OpenRecent {
                         create_new_window: false,
                     },
@@ -497,9 +497,9 @@ impl TitleBar {
                 .label_size(LabelSize::Small)
                 .tooltip(move |window, cx| {
                     Tooltip::with_meta(
-                        "Recent Branches",
+                        "最近的分支",
                         Some(&zed_actions::git::Branch),
-                        "Local branches only",
+                        "仅本地分支",
                         window,
                         cx,
                     )
@@ -574,18 +574,18 @@ impl TitleBar {
                 div()
                     .id("disconnected")
                     .child(Icon::new(IconName::Disconnected).size(IconSize::Small))
-                    .tooltip(Tooltip::text("Disconnected"))
+                    .tooltip(Tooltip::text("断开连接"))
                     .into_any_element(),
             ),
             client::Status::UpgradeRequired => {
                 let auto_updater = auto_update::AutoUpdater::get(cx);
                 let label = match auto_updater.map(|auto_update| auto_update.read(cx).status()) {
-                    Some(AutoUpdateStatus::Updated { .. }) => "Please restart Zed to Collaborate",
+                    Some(AutoUpdateStatus::Updated { .. }) => "请重新启动Zed以进行协作",
                     Some(AutoUpdateStatus::Installing { .. })
                     | Some(AutoUpdateStatus::Downloading { .. })
-                    | Some(AutoUpdateStatus::Checking) => "Updating...",
+                    | Some(AutoUpdateStatus::Checking) => "更新中...",
                     Some(AutoUpdateStatus::Idle) | Some(AutoUpdateStatus::Errored) | None => {
-                        "Please update Zed to Collaborate"
+                        "请更新Zed以进行协作"
                     }
                 };
 
@@ -610,7 +610,7 @@ impl TitleBar {
 
     pub fn render_sign_in_button(&mut self, _: &mut Context<Self>) -> Button {
         let client = self.client.clone();
-        Button::new("sign_in", "Sign in")
+        Button::new("sign_in", "登录")
             .label_size(LabelSize::Small)
             .on_click(move |_, window, cx| {
                 let client = client.clone();
@@ -681,12 +681,12 @@ impl TitleBar {
                             },
                         )
                         .separator()
-                        .action("Settings", zed_actions::OpenSettings.boxed_clone())
+                        .action("设置", zed_actions::OpenSettings.boxed_clone())
                         .action(
                             "Settings Profiles",
                             zed_actions::settings_profile_selector::Toggle.boxed_clone(),
                         )
-                        .action("Key Bindings", Box::new(keybindings::OpenKeymapEditor))
+                        .action("快捷键绑定", Box::new(keybindings::OpenKeymapEditor))
                         .action(
                             "Themes…",
                             zed_actions::theme_selector::Toggle::default().boxed_clone(),
@@ -700,7 +700,7 @@ impl TitleBar {
                             zed_actions::Extensions::default().boxed_clone(),
                         )
                         .separator()
-                        .action("Sign Out", client::SignOut.boxed_clone())
+                        .action("登出", client::SignOut.boxed_clone())
                     })
                     .into()
                 })
@@ -721,7 +721,7 @@ impl TitleBar {
                                 ),
                         )
                         .style(ButtonStyle::Subtle),
-                    Tooltip::text("Toggle User Menu"),
+                    Tooltip::text("切换用户菜单"),
                 )
                 .anchor(gpui::Corner::TopRight)
         } else {
@@ -729,12 +729,12 @@ impl TitleBar {
                 .anchor(Corner::TopRight)
                 .menu(|window, cx| {
                     ContextMenu::build(window, cx, |menu, _, _| {
-                        menu.action("Settings", zed_actions::OpenSettings.boxed_clone())
+                        menu.action("设置", zed_actions::OpenSettings.boxed_clone())
                             .action(
                                 "Settings Profiles",
                                 zed_actions::settings_profile_selector::Toggle.boxed_clone(),
                             )
-                            .action("Key Bindings", Box::new(keybindings::OpenKeymapEditor))
+                            .action("快捷键绑定", Box::new(keybindings::OpenKeymapEditor))
                             .action(
                                 "Themes…",
                                 zed_actions::theme_selector::Toggle::default().boxed_clone(),
@@ -752,7 +752,7 @@ impl TitleBar {
                 })
                 .trigger_with_tooltip(
                     IconButton::new("user-menu", IconName::ChevronDown).icon_size(IconSize::Small),
-                    Tooltip::text("Toggle User Menu"),
+                    Tooltip::text("切换用户菜单"),
                 )
         }
     }

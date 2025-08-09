@@ -43,20 +43,20 @@ impl IpsFile {
                 None => "Crash `Abort trap: 6` (possible panic)".into(),
             }
         } else if let Some(msg) = &self.body.exception.message {
-            format!("Exception `{}`", msg)
+            format!("异常 `{}`", msg)
         } else {
-            format!("Crash `{}`", self.body.termination.indicator)
+            format!("崩溃 `{}`", self.body.termination.indicator)
         };
         if let Some(thread) = self.faulting_thread() {
             if let Some(queue) = thread.queue.as_ref() {
                 desc += &format!(
-                    " on thread {} ({})",
+                    " 在线程 {} ({})",
                     self.body.faulting_thread.unwrap_or_default(),
                     queue
                 );
             } else {
                 desc += &format!(
-                    " on thread {} ({})",
+                    " 在线程 {} ({})",
                     self.body.faulting_thread.unwrap_or_default(),
                     thread.name.clone().unwrap_or_default()
                 );
@@ -87,7 +87,7 @@ impl IpsFile {
             let total = frames.len();
             if total > 21 {
                 frames = frames.into_iter().take(20).collect();
-                frames.push(format!("  and {} more...", total - 20))
+                frames.push(format!("  和 {} 更多...", total - 20))
             }
             frames.join("\n")
         } else {

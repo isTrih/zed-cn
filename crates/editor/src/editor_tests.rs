@@ -9904,7 +9904,7 @@ async fn test_multibuffer_format_during_save(cx: &mut TestAppContext) {
         .on_request::<lsp::request::Formatting, _, _>(move |params, _| async move {
             Ok(Some(vec![lsp::TextEdit::new(
                 lsp::Range::new(lsp::Position::new(0, 3), lsp::Position::new(1, 0)),
-                format!("[{} formatted]", params.text_document.uri),
+                format!("[{} 格式化]", params.text_document.uri),
             )]))
         })
         .detach();
@@ -13627,7 +13627,7 @@ async fn test_no_duplicated_completion_requests(cx: &mut TestAppContext) {
     let completion_item = lsp::CompletionItem {
         label: "Some".into(),
         kind: Some(lsp::CompletionItemKind::SNIPPET),
-        detail: Some("Wrap the expression in an `Option::Some`".to_string()),
+        detail: Some("将表达式包装在 `Option::Some` 中".to_string()),
         documentation: Some(lsp::Documentation::MarkupContent(lsp::MarkupContent {
             kind: lsp::MarkupKind::Markdown,
             value: "```rust\nSome(2)\n```".to_string(),
@@ -15707,7 +15707,7 @@ async fn test_completions_with_additional_edits(cx: &mut TestAppContext) {
     let completion_item = lsp::CompletionItem {
         label: "some".into(),
         kind: Some(lsp::CompletionItemKind::SNIPPET),
-        detail: Some("Wrap the expression in an `Option::Some`".to_string()),
+        detail: Some("将表达式包装在 `Option::Some` 中".to_string()),
         documentation: Some(lsp::Documentation::MarkupContent(lsp::MarkupContent {
             kind: lsp::MarkupKind::Markdown,
             value: "```rust\nSome(2)\n```".to_string(),

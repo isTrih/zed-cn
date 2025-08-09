@@ -109,7 +109,7 @@ impl Render for EditPredictionButton {
                                         workspace.show_toast(
                                             Toast::new(
                                                 NotificationId::unique::<CopilotErrorToast>(),
-                                                format!("Copilot can't be started: {}", e),
+                                                format!("无法启动 Copilot：{}", e),
                                             )
                                             .on_click(
                                                 "Reinstall Copilot",
@@ -192,7 +192,7 @@ impl Render for EditPredictionButton {
                                 Some(ContextMenu::build(window, cx, |menu, _, _| {
                                     let fs = fs.clone();
                                     let activate_url = activate_url.clone();
-                                    menu.entry("Sign In", None, move |_, cx| {
+                                    menu.entry("登录", None, move |_, cx| {
                                         cx.open_url(activate_url.as_str())
                                     })
                                     .entry(
@@ -706,7 +706,7 @@ impl EditPredictionButton {
                     }
                     .boxed_clone(),
                 )
-                .action("Sign Out", copilot::SignOut.boxed_clone())
+                .action("登出", copilot::SignOut.boxed_clone())
         })
     }
 
@@ -718,7 +718,7 @@ impl EditPredictionButton {
         ContextMenu::build(window, cx, |menu, window, cx| {
             self.build_language_settings_menu(menu, window, cx)
                 .separator()
-                .action("Sign Out", supermaven::SignOut.boxed_clone())
+                .action("登出", supermaven::SignOut.boxed_clone())
         })
     }
 
@@ -877,10 +877,10 @@ impl SupermavenButtonStatus {
 
     fn to_tooltip(&self) -> String {
         match self {
-            SupermavenButtonStatus::Ready => "Supermaven is ready".to_string(),
-            SupermavenButtonStatus::Errored(error) => format!("Supermaven error: {}", error),
-            SupermavenButtonStatus::NeedsActivation(_) => "Supermaven needs activation".to_string(),
-            SupermavenButtonStatus::Initializing => "Supermaven initializing".to_string(),
+            SupermavenButtonStatus::Ready => "Supermaven 已准备就绪".to_string(),
+            SupermavenButtonStatus::Errored(error) => format!("Supermaven 错误：{}", error),
+            SupermavenButtonStatus::NeedsActivation(_) => "Supermaven 需要激活".to_string(),
+            SupermavenButtonStatus::Initializing => "Supermaven 初始化中".to_string(),
         }
     }
 

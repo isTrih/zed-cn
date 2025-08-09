@@ -313,7 +313,7 @@ pub fn register(editor: &mut Editor, cx: &mut Context<Vim>) {
             if project.read(cx).entry_for_path(&project_path, cx).is_some() && action.save_intent != Some(SaveIntent::Overwrite) {
                 let answer = window.prompt(
                     gpui::PromptLevel::Critical,
-                    &format!("{} already exists. Do you want to replace it?", project_path.path.to_string_lossy()),
+                    &format!("{} 已存在。您要替换它吗？", project_path.path.to_string_lossy()),
                     Some(
                         "A file or folder with the same name already exists. Replacing it will overwrite its current contents.",
                     ),

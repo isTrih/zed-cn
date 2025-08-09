@@ -157,7 +157,7 @@ fn main() {
             cx.bind_keys([KeyBinding::new("cmd-q", Quit, None)]);
             cx.set_menus(vec![Menu {
                 name: "Image".into(),
-                items: vec![MenuItem::action("Quit", Quit)],
+                items: vec![MenuItem::action("退出", Quit)],
             }]);
 
             let window_options = WindowOptions {

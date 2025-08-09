@@ -38,9 +38,9 @@ impl Render for ToolbarControls {
         }
 
         let tooltip = if include_warnings {
-            "Exclude Warnings"
+            "排除警告"
         } else {
-            "Include Warnings"
+            "包括警告"
         };
 
         let warning_color = if include_warnings {

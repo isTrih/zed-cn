@@ -277,7 +277,7 @@ impl LspAdapter for ExtensionLspAdapter {
             .await?;
         Ok(if let Some(json_options) = json_options {
             serde_json::from_str(&json_options).with_context(|| {
-                format!("failed to parse initialization_options from extension: {json_options}")
+                format!("无法从扩展解析 initialization_options：{json_options}")
             })?
         } else {
             None

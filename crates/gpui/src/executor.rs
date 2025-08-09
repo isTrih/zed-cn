@@ -288,10 +288,10 @@ impl BackgroundExecutor {
                             let mut waiting_message = String::new();
                             if let Some(backtrace) = dispatcher.waiting_backtrace() {
                                 backtrace_message =
-                                    format!("\nbacktrace of waiting future:\n{:?}", backtrace);
+                                    format!("\n等待未来的回溯：\n{:?}", backtrace);
                             }
                             if let Some(waiting_hint) = dispatcher.waiting_hint() {
-                                waiting_message = format!("\n  waiting on: {}\n", waiting_hint);
+                                waiting_message = format!("\n  等待中： {}\n", waiting_hint);
                             }
                             panic!(
                                 "parked with nothing left to run{waiting_message}{backtrace_message}",

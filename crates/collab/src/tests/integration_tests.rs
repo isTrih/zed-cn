@@ -5481,7 +5481,7 @@ async fn test_lsp_hover(
                             );
                             Ok(Some(lsp::Hover {
                                 contents: lsp::HoverContents::Array(vec![
-                                    lsp::MarkedString::String("Test hover content.".to_string()),
+                                    lsp::MarkedString::String("测试悬停内容。".to_string()),
                                     lsp::MarkedString::LanguageString(lsp::LanguageString {
                                         language: "Rust".to_string(),
                                         value: "let foo = 42;".to_string(),
@@ -5536,7 +5536,7 @@ async fn test_lsp_hover(
         second_hover.contents,
         vec![
             project::HoverBlock {
-                text: "Test hover content.".to_string(),
+                text: "测试悬停内容。".to_string(),
                 kind: HoverBlockKind::Markdown,
             },
             project::HoverBlock {

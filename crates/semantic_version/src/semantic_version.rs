@@ -94,6 +94,6 @@ impl<'de> Deserialize<'de> for SemanticVersion {
     {
         let string = String::deserialize(deserializer)?;
         Self::from_str(&string)
-            .map_err(|_| Error::custom(format!("Invalid version string \"{string}\"")))
+            .map_err(|_| Error::custom(format!("无效的版本字符串 \"{string}\"")))
     }
 }

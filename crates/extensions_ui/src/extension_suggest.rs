@@ -199,7 +199,7 @@ pub(crate) fn suggest(buffer: Entity<Buffer>, window: &mut Window, cx: &mut Cont
                 .secondary_on_click(move |_window, cx| {
                     let key = language_extension_key(&extension_id);
                     db::write_and_log(cx, move || {
-                        KEY_VALUE_STORE.write_kvp(key, "dismissed".to_string())
+                        KEY_VALUE_STORE.write_kvp(key, "已取消".to_string())
                     });
                 })
             })

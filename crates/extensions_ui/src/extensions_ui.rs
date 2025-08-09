@@ -326,7 +326,7 @@ impl ExtensionsPage {
 
             let query_editor = cx.new(|cx| {
                 let mut input = Editor::single_line(window, cx);
-                input.set_placeholder_text("Search extensions...", cx);
+                input.set_placeholder_text("搜索扩展...", cx);
                 if let Some(id) = focus_extension_id {
                     input.set_text(format!("id:{id}"), window, cx);
                 }
@@ -594,7 +594,7 @@ impl ExtensionsPage {
                             .justify_between()
                             .child(
                                 Button::new(
-                                    SharedString::from(format!("rebuild-{}", extension.id)),
+                                    SharedString::from(format!("重建-{}", extension.id)),
                                     "Rebuild",
                                 )
                                 .color(Color::Accent)
@@ -682,7 +682,7 @@ impl ExtensionsPage {
                     }))
                     .children(repository_url.map(|repository_url| {
                         IconButton::new(
-                            SharedString::from(format!("repository-{}", extension.id)),
+                            SharedString::from(format!("仓库-{}", extension.id)),
                             IconName::Github,
                         )
                         .icon_color(Color::Accent)
@@ -735,7 +735,7 @@ impl ExtensionsPage {
                                 installed_version
                                     .filter(|installed_version| *installed_version != version)
                                     .map(|installed_version| {
-                                        Headline::new(format!("(v{installed_version} installed)",))
+                                        Headline::new(format!("(已安装 v{installed_version})",))
                                             .size(HeadlineSize::XSmall)
                                     }),
                             )
@@ -794,7 +794,7 @@ impl ExtensionsPage {
                     )
                     .child(
                         Label::new(format!(
-                            "Downloads: {}",
+                            "下载：{}",
                             extension.download_count.to_formatted_string(&Locale::en)
                         ))
                         .size(LabelSize::Small),
@@ -815,7 +815,7 @@ impl ExtensionsPage {
                             .gap_2()
                             .child(
                                 IconButton::new(
-                                    SharedString::from(format!("repository-{}", extension.id)),
+                                    SharedString::from(format!("仓库-{}", extension.id)),
                                     IconName::Github,
                                 )
                                 .icon_color(Color::Accent)
@@ -830,12 +830,12 @@ impl ExtensionsPage {
                             )
                             .child(
                                 PopoverMenu::new(SharedString::from(format!(
-                                    "more-{}",
+                                    "更多-{}",
                                     extension.id
                                 )))
                                 .trigger(
                                     IconButton::new(
-                                        SharedString::from(format!("more-{}", extension.id)),
+                                        SharedString::from(format!("更多-{}", extension.id)),
                                         IconName::Ellipsis,
                                     )
                                     .icon_color(Color::Accent)
@@ -1054,7 +1054,7 @@ impl ExtensionsPage {
                                     move |_, cx| {
                                         Tooltip::simple(
                                             format!(
-                                                "v{version} is not compatible with this version of Zed.",
+                                                "v{version} 与当前 Zed 版本不兼容。",
                                             ),
                                              cx,
                                         )
@@ -1394,7 +1394,7 @@ impl Render for ExtensionsPage {
                             .justify_between()
                             .child(Headline::new("Extensions").size(HeadlineSize::XLarge))
                             .child(
-                                Button::new("install-dev-extension", "Install Dev Extension")
+                                Button::new("install-dev-extension", "安装开发扩展")
                                     .style(ButtonStyle::Filled)
                                     .size(ButtonSize::Large)
                                     .on_click(|_event, window, cx| {
@@ -1411,7 +1411,7 @@ impl Render for ExtensionsPage {
                             .child(
                                 h_flex()
                                     .child(
-                                        ToggleButton::new("filter-all", "All")
+                                        ToggleButton::new("filter-all", "全部")
                                             .style(ButtonStyle::Filled)
                                             .size(ButtonSize::Large)
                                             .toggle_state(self.filter == ExtensionFilter::All)
@@ -1426,7 +1426,7 @@ impl Render for ExtensionsPage {
                                             .first(),
                                     )
                                     .child(
-                                        ToggleButton::new("filter-installed", "Installed")
+                                        ToggleButton::new("filter-installed", "已安装")
                                             .style(ButtonStyle::Filled)
                                             .size(ButtonSize::Large)
                                             .toggle_state(self.filter == ExtensionFilter::Installed)
@@ -1441,7 +1441,7 @@ impl Render for ExtensionsPage {
                                             .middle(),
                                     )
                                     .child(
-                                        ToggleButton::new("filter-not-installed", "Not Installed")
+                                        ToggleButton::new("filter-not-installed", "未安装")
                                             .style(ButtonStyle::Filled)
                                             .size(ButtonSize::Large)
                                             .toggle_state(

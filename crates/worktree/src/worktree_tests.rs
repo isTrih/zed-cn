@@ -1084,7 +1084,7 @@ async fn test_fs_events_in_exclusions(cx: &mut TestAppContext) {
                 project_settings.file_scan_exclusions = Some(vec![
                     "**/.git".to_string(),
                     "node_modules/".to_string(),
-                    "build_output".to_string(),
+                    "构建输出".to_string(),
                 ]);
             });
         });

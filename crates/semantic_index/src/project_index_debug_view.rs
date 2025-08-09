@@ -144,7 +144,7 @@ impl ProjectIndexDebugView {
                 h_flex()
                     .justify_between()
                     .child(format!(
-                        "chunk {} of {}. length: {}",
+                        "块 {} / {}. 长度：{}",
                         ix + 1,
                         state.chunks.len(),
                         chunk.len(),

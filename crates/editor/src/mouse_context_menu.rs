@@ -215,13 +215,13 @@ pub fn deploy_context_menu(
                     run_to_cursor || (evaluate_selection && has_selections),
                     |builder| builder.separator(),
                 )
-                .action("Go to Definition", Box::new(GoToDefinition))
+                .action("转到定义", Box::new(GoToDefinition))
                 .action("Go to Declaration", Box::new(GoToDeclaration))
-                .action("Go to Type Definition", Box::new(GoToTypeDefinition))
-                .action("Go to Implementation", Box::new(GoToImplementation))
-                .action("Find All References", Box::new(FindAllReferences))
+                .action("转到类型定义", Box::new(GoToTypeDefinition))
+                .action("转到实现", Box::new(GoToImplementation))
+                .action("查找所有引用", Box::new(FindAllReferences))
                 .separator()
-                .action("Rename Symbol", Box::new(Rename))
+                .action("重命名符号", Box::new(Rename))
                 .action("Format Buffer", Box::new(Format))
                 .when(has_selections, |cx| {
                     cx.action("Format Selections", Box::new(FormatSelections))
@@ -234,10 +234,10 @@ pub fn deploy_context_menu(
                     }),
                 )
                 .separator()
-                .action("Cut", Box::new(Cut))
-                .action("Copy", Box::new(Copy))
+                .action("剪切", Box::new(Cut))
+                .action("复制", Box::new(Copy))
                 .action("Copy and Trim", Box::new(CopyAndTrim))
-                .action("Paste", Box::new(Paste))
+                .action("粘贴", Box::new(Paste))
                 .separator()
                 .action_disabled_when(
                     !has_reveal_target,

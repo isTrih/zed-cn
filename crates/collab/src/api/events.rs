@@ -185,7 +185,7 @@ pub async fn post_crash(
             w.add_section(|s| s.text(slack::Text::markdown(description)))
                 .add_section(|s| {
                     s.add_field(slack::Text::markdown(format!(
-                        "*Version:*\n{} ({})",
+                        "*版本：*\n{} ({})",
                         bundle_id, app_version
                     )))
                     .add_field({
@@ -195,7 +195,7 @@ pub async fn post_crash(
                         });
 
                         slack::Text::markdown(format!(
-                            "*Incident:*\n<https://{}.{}/{}.ips|{}…>",
+                            "*事件：*\n<https://{}.{}/{}.ips|{}…>",
                             CRASH_REPORTS_BUCKET,
                             hostname,
                             report.header.incident_id,
@@ -270,8 +270,8 @@ pub async fn post_hang(
         Error::Internal(anyhow!(err))
     })?;
 
-    let mut backtrace = "Possible hang detected on main thread:".to_string();
-    let unknown = "<unknown>".to_string();
+    let mut backtrace = "在主线程上检测到可能的挂起：".to_string();
+    let unknown = "<未知>".to_string();
     for frame in report.backtrace.iter() {
         backtrace.push_str(&format!("\n{}", frame.symbols.first().unwrap_or(&unknown)));
     }
@@ -397,7 +397,7 @@ pub async fn post_panic(
         let backtrace = if panic.backtrace.len() > 25 {
             let total = panic.backtrace.len();
             format!(
-                "{}\n   and {} more",
+                "{}\n   和 {} 更多",
                 panic
                     .backtrace
                     .iter()
@@ -422,9 +422,9 @@ pub async fn post_panic(
         };
 
         let payload = slack::WebhookBody::new(|w| {
-            w.add_section(|s| s.text(slack::Text::markdown("Panic request".to_string())))
+            w.add_section(|s| s.text(slack::Text::markdown("Panic 请求".to_string())))
                 .add_section(|s| {
-                    s.add_field(slack::Text::markdown(format!("*Version:*\n {version} ",)))
+                    s.add_field(slack::Text::markdown(format!("*版本：*\n {version} ",)))
                         .add_field({
                             let hostname = app.config.blob_store_url.clone().unwrap_or_default();
                             let hostname = hostname.strip_prefix("https://").unwrap_or_else(|| {

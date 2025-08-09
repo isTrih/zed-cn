@@ -220,7 +220,7 @@ impl Render for WelcomePage {
                                     )
                                     .when(cfg!(target_os = "macos"), |el| {
                                         el.child(
-                                            Button::new("install-cli", "Install the CLI")
+                                            Button::new("install-cli", "安装 CLI")
                                                 .icon(IconName::Terminal)
                                                 .icon_size(IconSize::XSmall)
                                                 .icon_color(Color::Muted)

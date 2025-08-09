@@ -672,15 +672,15 @@ impl ProjectPanel {
                                     true,
                                     window, cx,
                                 )
-                                .detach_and_prompt_err("Failed to open file", window, cx, move |e, _, _| {
+                                .detach_and_prompt_err("打开文件失败", window, cx, move |e, _, _| {
                                     match e.error_code() {
                                         ErrorCode::Disconnected => if is_via_ssh {
                                             Some("Disconnected from SSH host".to_string())
                                         } else {
-                                            Some("Disconnected from remote project".to_string())
+                                            Some("与远程项目断开连接".to_string())
                                         },
                                         ErrorCode::UnsharedItem => Some(format!(
-                                            "{} is not shared by the host. This could be because it has been marked as `private`",
+                                            "{} 未被主机共享。可能是因为它被标记为 `private`",
                                             file_path.display()
                                         )),
                                         // See note in worktree.rs where this error originates. Returning Some in this case prevents
@@ -912,14 +912,14 @@ impl ProjectPanel {
                 menu.context(self.focus_handle.clone()).map(|menu| {
                     if is_read_only {
                         menu.when(is_dir, |menu| {
-                            menu.action("Search Inside", Box::new(NewSearchInDirectory))
+                            menu.action("搜索内部", Box::new(NewSearchInDirectory))
                         })
                     } else {
-                        menu.action("New File", Box::new(NewFile))
-                            .action("New Folder", Box::new(NewDirectory))
+                        menu.action("新建文件", Box::new(NewFile))
+                            .action("新建文件夹", Box::new(NewDirectory))
                             .separator()
                             .when(is_local && cfg!(target_os = "macos"), |menu| {
-                                menu.action("Reveal in Finder", Box::new(RevealInFileManager))
+                                menu.action("在 文件管理器 中显示", Box::new(RevealInFileManager))
                             })
                             .when(is_local && cfg!(not(target_os = "macos")), |menu| {
                                 menu.action("Reveal in File Manager", Box::new(RevealInFileManager))
@@ -927,25 +927,25 @@ impl ProjectPanel {
                             .when(is_local, |menu| {
                                 menu.action("Open in Default App", Box::new(OpenWithSystem))
                             })
-                            .action("Open in Terminal", Box::new(OpenInTerminal))
+                            .action("在终端打开", Box::new(OpenInTerminal))
                             .when(is_dir, |menu| {
                                 menu.separator()
-                                    .action("Find in Folder…", Box::new(NewSearchInDirectory))
+                                    .action("在文件夹中查找…", Box::new(NewSearchInDirectory))
                             })
                             .when(is_unfoldable, |menu| {
-                                menu.action("Unfold Directory", Box::new(UnfoldDirectory))
+                                menu.action("展开目录", Box::new(UnfoldDirectory))
                             })
                             .when(is_foldable, |menu| {
-                                menu.action("Fold Directory", Box::new(FoldDirectory))
+                                menu.action("折叠目录", Box::new(FoldDirectory))
                             })
                             .when(should_show_compare, |menu| {
                                 menu.separator()
                                     .action("Compare marked files", Box::new(CompareMarkedFiles))
                             })
                             .separator()
-                            .action("Cut", Box::new(Cut))
-                            .action("Copy", Box::new(Copy))
-                            .action("Duplicate", Box::new(Duplicate))
+                            .action("剪切", Box::new(Cut))
+                            .action("复制", Box::new(Copy))
+                            .action("复制", Box::new(Duplicate))
                             // TODO: Paste should always be visible, cbut disabled when clipboard is empty
                             .action_disabled_when(
                                 self.clipboard.as_ref().is_none(),
@@ -953,20 +953,20 @@ impl ProjectPanel {
                                 Box::new(Paste),
                             )
                             .separator()
-                            .action("Copy Path", Box::new(zed_actions::workspace::CopyPath))
+                            .action("复制路径", Box::new(zed_actions::workspace::CopyPath))
                             .action(
                                 "Copy Relative Path",
                                 Box::new(zed_actions::workspace::CopyRelativePath),
                             )
                             .separator()
                             .when(!should_hide_rename, |menu| {
-                                menu.action("Rename", Box::new(Rename))
+                                menu.action("重命名", Box::new(Rename))
                             })
                             .when(!is_root & !is_remote, |menu| {
-                                menu.action("Trash", Box::new(Trash { skip_prompt: false }))
+                                menu.action("回收站", Box::new(Trash { skip_prompt: false }))
                             })
                             .when(!is_root, |menu| {
-                                menu.action("Delete", Box::new(Delete { skip_prompt: false }))
+                                menu.action("删除", Box::new(Delete { skip_prompt: false }))
                             })
                             .when(!is_remote & is_root, |menu| {
                                 menu.separator()
@@ -974,11 +974,11 @@ impl ProjectPanel {
                                         "Add Folder to Project…",
                                         Box::new(workspace::AddFolderToProject),
                                     )
-                                    .action("Remove from Project", Box::new(RemoveFromProject))
+                                    .action("从项目中移除", Box::new(RemoveFromProject))
                             })
                             .when(is_root, |menu| {
                                 menu.separator()
-                                    .action("Collapse All", Box::new(CollapseAllEntries))
+                                    .action("折叠全部", Box::new(CollapseAllEntries))
                             })
                     }
                 })
@@ -1503,7 +1503,7 @@ impl ProjectPanel {
                                 project_panel.project.update(cx, |_, cx| {
                                     cx.emit(project::Event::Toast {
                                         notification_id: "excluded-directory".into(),
-                                        message: format!("Created an excluded directory at {abs_path:?}.\nAlter `file_scan_exclusions` in the settings to show it in the panel")
+                                        message: format!("在 {abs_path:?} 处创建了一个排除的目录。\n在设置中修改 `file_scan_exclusions` 以在面板中显示它")
                                     })
                                 });
                                 None
@@ -1802,7 +1802,7 @@ impl ProjectPanel {
                             if truncated_path_counts == 1 {
                                 paths.push(".. 1 file not shown".into());
                             } else {
-                                paths.push(format!(".. {} files not shown", truncated_path_counts));
+                                paths.push(format!(".. {} 个文件未显示", truncated_path_counts));
                             }
                             paths
                         } else {
@@ -1819,7 +1819,7 @@ impl ProjectPanel {
                         };
 
                         format!(
-                            "Do you want to {} the following {} files?\n{}{unsaved_warning}",
+                            "您是否要{}以下{}个文件？\n{}{unsaved_warning}",
                             operation.to_lowercase(),
                             file_paths.len(),
                             names.join("\n")
@@ -3308,7 +3308,7 @@ impl ProjectPanel {
                         window
                             .prompt(
                                 PromptLevel::Info,
-                                format!("A file or folder with name {filename} already exists in the destination folder. Do you want to replace it?").as_str(),
+                                format!("目标文件夹中已存在名称为 {filename} 的文件或文件夹。您要替换它吗？").as_str(),
                                 None,
                                 &["Replace", "Cancel"],
                                 cx,
@@ -5531,7 +5531,7 @@ impl Render for ProjectPanel {
                 .p_4()
                 .track_focus(&self.focus_handle(cx))
                 .child(
-                    Button::new("open_project", "Open a project")
+                    Button::new("open_project", "打开项目")
                         .full_width()
                         .key_binding(KeyBinding::for_action_in(
                             &OpenRecent::default(),
@@ -5659,7 +5659,7 @@ impl Panel for ProjectPanel {
     }
 
     fn icon_tooltip(&self, _window: &Window, _cx: &App) -> Option<&'static str> {
-        Some("Project Panel")
+        Some("项目面板")
     }
 
     fn toggle_action(&self) -> Box<dyn Action> {
@@ -5667,7 +5667,7 @@ impl Panel for ProjectPanel {
     }
 
     fn persistent_name() -> &'static str {
-        "Project Panel"
+        "项目面板"
     }
 
     fn starts_open(&self, _: &Window, cx: &App) -> bool {

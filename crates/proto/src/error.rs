@@ -26,7 +26,7 @@
 /// match err.error_code() {
 ///   ErrorCode::Forbidden => alert("I'm sorry I can't do that.")
 ///   ErrorCode::WrongReleaseChannel =>
-///     alert(format!("You need to be on the {} release channel.", err.error_tag("required").unwrap()))
+///     alert(format!("您需要在 {} 发行渠道上。", err.error_tag("required").unwrap()))
 ///   ErrorCode::Internal => alert("Sorry, something went wrong")
 /// }
 /// ```

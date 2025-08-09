@@ -919,7 +919,7 @@ mod tests {
         );
 
         cx.dispatch_action(Spawn::ByName {
-            task_name: "example task".to_string(),
+            task_name: "示例任务".to_string(),
             reveal_target: None,
         });
         let tasks_picker = workspace.update(cx, |workspace, cx| {
@@ -1081,18 +1081,18 @@ mod tests {
                 .with_context_provider(Some(Arc::new(
                     ContextProviderWithTasks::new(TaskTemplates(vec![
                         TaskTemplate {
-                            label: "Task without variables".to_string(),
-                            command: "npm run clean".to_string(),
+                            label: "无变量任务".to_string(),
+                            command: "npm 清理".to_string(),
                             ..TaskTemplate::default()
                         },
                         TaskTemplate {
-                            label: "TypeScript task from file $ZED_FILE".to_string(),
-                            command: "npm run build".to_string(),
+                            label: "来自文件 $ZED_FILE 的 TypeScript 任务".to_string(),
+                            command: "npm 构建".to_string(),
                             ..TaskTemplate::default()
                         },
                         TaskTemplate {
-                            label: "Another task from file $ZED_FILE".to_string(),
-                            command: "npm run lint".to_string(),
+                            label: "另一个来自文件 $ZED_FILE 的任务".to_string(),
+                            command: "npm 代码检查".to_string(),
                             ..TaskTemplate::default()
                         },
                     ])),
@@ -1112,7 +1112,7 @@ mod tests {
                 )
                 .with_context_provider(Some(Arc::new(
                     ContextProviderWithTasks::new(TaskTemplates(vec![TaskTemplate {
-                        label: "Rust task".to_string(),
+                        label: "Rust 任务".to_string(),
                         command: "cargo check".into(),
                         ..TaskTemplate::default()
                     }])),

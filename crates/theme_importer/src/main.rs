@@ -113,7 +113,7 @@ fn main() -> Result<()> {
     };
 
     let vscode_theme: VsCodeTheme = serde_json_lenient::from_reader(theme_file)
-        .context(format!("failed to parse theme {theme_file_path:?}"))?;
+        .context(format!("无法解析主题 {theme_file_path:?}"))?;
 
     let theme_metadata = ThemeMetadata {
         name: vscode_theme.name.clone().unwrap_or("".to_string()),

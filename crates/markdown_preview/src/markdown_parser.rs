@@ -829,7 +829,7 @@ mod tests {
             ParsedMarkdownElement::Paragraph(vec![MarkdownParagraphChunk::Text(
                 ParsedMarkdownText {
                     source_range: 0..35,
-                    contents: "Some bostrikethroughld text".to_string(),
+                    contents: "一些删除线文本".to_string(),
                     highlights: Vec::new(),
                     region_ranges: Vec::new(),
                     regions: Vec::new(),

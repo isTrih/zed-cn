@@ -27,7 +27,7 @@ fn main() {
         // Add menu items
         cx.set_menus(vec![Menu {
             name: "set_menus".into(),
-            items: vec![MenuItem::action("Quit", Quit)],
+            items: vec![MenuItem::action("退出", Quit)],
         }]);
         cx.open_window(WindowOptions::default(), |_, cx| cx.new(|_| SetMenus {}))
             .unwrap();

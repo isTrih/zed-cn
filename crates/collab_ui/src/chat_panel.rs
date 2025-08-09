@@ -34,7 +34,7 @@ use workspace::{
 mod message_editor;
 
 const MESSAGE_LOADING_THRESHOLD: usize = 50;
-const CHAT_PANEL_KEY: &str = "ChatPanel";
+const CHAT_PANEL_KEY: &str = "聊天面板";
 
 pub fn init(cx: &mut App) {
     cx.observe_new(|workspace: &mut Workspace, _, _| {
@@ -321,7 +321,7 @@ impl ChatPanel {
                         .child(Icon::new(IconName::ReplyArrowRight).color(Color::Muted))
                         .when(reply_to_message.is_none(), |el| {
                             el.child(
-                                Label::new("Message has been deleted...")
+                                Label::new("消息已被删除...")
                                     .size(LabelSize::XSmall)
                                     .color(Color::Muted),
                             )
@@ -371,7 +371,7 @@ impl ChatPanel {
                     ),
                 )
                 .cursor(CursorStyle::PointingHand)
-                .tooltip(Tooltip::text("Go to message"))
+                .tooltip(Tooltip::text("转到消息"))
                 .on_click(cx.listener(move |chat_panel, _, _, cx| {
                     if let Some(channel_id) = current_channel_id {
                         chat_panel
@@ -623,7 +623,7 @@ impl ChatPanel {
                                         })
                                     })),
                             )
-                            .tooltip(Tooltip::text("Reply")),
+                            .tooltip(Tooltip::text("回复")),
                     ),
                 )
             })
@@ -668,7 +668,7 @@ impl ChatPanel {
                                             })
                                         })),
                                 )
-                                .tooltip(Tooltip::text("Edit")),
+                                .tooltip(Tooltip::text("编辑")),
                         ),
                     )
                 })
@@ -697,7 +697,7 @@ impl ChatPanel {
                                     }),
                             )
                             .id("more")
-                            .tooltip(Tooltip::text("More")),
+                            .tooltip(Tooltip::text("更多")),
                     ),
                 )
             })
@@ -713,7 +713,7 @@ impl ChatPanel {
         let menu = {
             ContextMenu::build(window, cx, move |menu, window, _| {
                 menu.entry(
-                    "Copy message text",
+                    "复制消息文本",
                     None,
                     window.handler_for(this, move |this, _, cx| {
                         if let Some(message) = this.active_chat().and_then(|active_chat| {
@@ -726,7 +726,7 @@ impl ChatPanel {
                 )
                 .when(can_delete_message, |menu| {
                     menu.entry(
-                        "Delete message",
+                        "删除消息",
                         None,
                         window.handler_for(this, move |this, _, cx| {
                             this.remove_message(message_id, cx)
@@ -944,7 +944,7 @@ impl Render for ChatPanel {
         let edit_message_id = message_editor.edit_message_id();
 
         v_flex()
-            .key_context("ChatPanel")
+            .key_context("聊天面板")
             .track_focus(&self.focus_handle)
             .size_full()
             .on_action(cx.listener(Self::send))
@@ -961,7 +961,7 @@ impl Render for ChatPanel {
                                     .and_then(|c| {
                                         Some(format!("#{}", c.0.read(cx).channel(cx)?.name))
                                     })
-                                    .unwrap_or("Chat".to_string()),
+                                    .unwrap_or("聊天".to_string()),
                             )),
                     ),
                 ),
@@ -981,13 +981,13 @@ impl Render for ChatPanel {
                             .size_full()
                             .p_4()
                             .child(
-                                Label::new("Select a channel to chat in.")
+                                Label::new("选择一个频道进行聊天。")
                                     .size(LabelSize::Small)
                                     .color(Color::Muted),
                             )
                             .child(
                                 div().pt_1().w_full().items_center().child(
-                                    Button::new("toggle-collab", "Open")
+                                    Button::new("toggle-collab", "打开")
                                         .full_width()
                                         .key_binding(KeyBinding::for_action(
                                             &collab_panel::ToggleFocus,
@@ -1021,7 +1021,7 @@ impl Render for ChatPanel {
                         .child(
                             IconButton::new("cancel-edit-message", IconName::Close)
                                 .shape(ui::IconButtonShape::Square)
-                                .tooltip(Tooltip::text("Cancel edit message"))
+                                .tooltip(Tooltip::text("取消编辑消息"))
                                 .on_click(cx.listener(move |this, _, _, cx| {
                                     this.cancel_edit_message(cx);
                                 })),
@@ -1056,7 +1056,7 @@ impl Render for ChatPanel {
                                 div().flex_shrink().overflow_hidden().child(
                                     h_flex()
                                         .id(("reply-preview", reply_to_message_id))
-                                        .child(Label::new("Replying to ").size(LabelSize::Small))
+                                        .child(Label::new("回复 ").size(LabelSize::Small))
                                         .child(
                                             Label::new(format!(
                                                 "@{}",
@@ -1083,7 +1083,7 @@ impl Render for ChatPanel {
                             .child(
                                 IconButton::new("close-reply-preview", IconName::Close)
                                     .shape(ui::IconButtonShape::Square)
-                                    .tooltip(Tooltip::text("Close reply"))
+                                    .tooltip(Tooltip::text("关闭回复"))
                                     .on_click(cx.listener(move |this, _, _, cx| {
                                         this.close_reply_preview(cx);
                                     })),
@@ -1153,7 +1153,7 @@ impl Panel for ChatPanel {
     }
 
     fn persistent_name() -> &'static str {
-        "ChatPanel"
+        "聊天面板"
     }
 
     fn icon(&self, _window: &Window, cx: &App) -> Option<ui::IconName> {
@@ -1161,7 +1161,7 @@ impl Panel for ChatPanel {
     }
 
     fn icon_tooltip(&self, _: &Window, _: &App) -> Option<&'static str> {
-        Some("Chat Panel")
+        Some("聊天面板")
     }
 
     fn toggle_action(&self) -> Box<dyn gpui::Action> {
@@ -1267,7 +1267,7 @@ mod tests {
         let language_registry = Arc::new(LanguageRegistry::test(cx.background_executor().clone()));
         let message = channel::ChannelMessage {
             id: ChannelMessageId::Saved(0),
-            body: "Here is a link https://zed.dev to zeds website".to_string(),
+            body: "这里是 zeds 网站的链接 https://zed.dev".to_string(),
             timestamp: OffsetDateTime::now_utc(),
             sender: Arc::new(client::User {
                 github_login: "fgh".into(),
@@ -1315,7 +1315,7 @@ mod tests {
         let language_registry = Arc::new(LanguageRegistry::test(cx.background_executor().clone()));
         let message = channel::ChannelMessage {
             id: ChannelMessageId::Saved(0),
-            body: "**Here is a link https://zed.dev to zeds website**".to_string(),
+            body: "**这里是 zeds 网站的链接 https://zed.dev**".to_string(),
             timestamp: OffsetDateTime::now_utc(),
             sender: Arc::new(client::User {
                 github_login: "fgh".into(),

@@ -264,7 +264,7 @@ impl<T: 'static> PromptEditor<T> {
         self.editor = cx.new(|cx| {
             let mut editor = Editor::auto_height(1, Self::MAX_LINES as usize, window, cx);
             editor.set_soft_wrap_mode(language::language_settings::SoftWrap::EditorWidth, cx);
-            editor.set_placeholder_text("Add a prompt…", cx);
+            editor.set_placeholder_text("添加提示...", cx);
             editor.set_text(prompt, window, cx);
             insert_message_creases(
                 &mut editor,

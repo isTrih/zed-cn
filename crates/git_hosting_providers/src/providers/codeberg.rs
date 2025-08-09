@@ -63,7 +63,7 @@ impl Codeberg {
         let mut response = client
             .send(request.body(AsyncBody::default())?)
             .await
-            .with_context(|| format!("error fetching Codeberg commit details at {:?}", url))?;
+            .with_context(|| format!("在 {:?} 处获取 Codeberg 提交详情时出错", url))?;
 
         let mut body = Vec::new();
         response.body_mut().read_to_end(&mut body).await?;

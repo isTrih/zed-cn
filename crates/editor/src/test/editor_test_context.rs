@@ -356,7 +356,7 @@ impl EditorTestContext {
     #[track_caller]
     pub fn set_state(&mut self, marked_text: &str) -> ContextHandle {
         let state_context = self.add_assertion_context(format!(
-            "Initial Editor State: \"{}\"",
+            "初始编辑器状态： \"{}\"",
             marked_text.escape_debug()
         ));
         let (unmarked_text, selection_ranges) = marked_text_ranges(marked_text, true);
@@ -373,7 +373,7 @@ impl EditorTestContext {
     #[track_caller]
     pub fn set_selections_state(&mut self, marked_text: &str) -> ContextHandle {
         let state_context = self.add_assertion_context(format!(
-            "Initial Editor State: \"{}\"",
+            "初始编辑器状态： \"{}\"",
             marked_text.escape_debug()
         ));
         let (unmarked_text, selection_ranges) = marked_text_ranges(marked_text, true);

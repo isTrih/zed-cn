@@ -1287,7 +1287,7 @@ pub async fn handle_websocket_request(
     if protocol_version != rpc::PROTOCOL_VERSION {
         return (
             StatusCode::UPGRADE_REQUIRED,
-            "client must be upgraded".to_string(),
+            "客户端必须升级".to_string(),
         )
             .into_response();
     }
@@ -1295,7 +1295,7 @@ pub async fn handle_websocket_request(
     let Some(version) = app_version_header.map(|header| ZedVersion(header.0.0)) else {
         return (
             StatusCode::UPGRADE_REQUIRED,
-            "no version header found".to_string(),
+            "未找到版本头".to_string(),
         )
             .into_response();
     };
@@ -1305,7 +1305,7 @@ pub async fn handle_websocket_request(
     if !version.can_collaborate() {
         return (
             StatusCode::UPGRADE_REQUIRED,
-            "client must be upgraded".to_string(),
+            "客户端必须升级".to_string(),
         )
             .into_response();
     }

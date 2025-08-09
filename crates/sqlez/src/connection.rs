@@ -302,7 +302,7 @@ mod test {
             .unwrap()()
         .unwrap();
 
-        let tuple1 = ("test".to_string(), 64, vec![0, 1, 2, 4, 8, 16, 32, 64]);
+        let tuple1 = ("测试".to_string(), 64, vec![0, 1, 2, 4, 8, 16, 32, 64]);
         let tuple2 = ("test2".to_string(), 32, vec![64, 32, 16, 8, 4, 2, 1, 0]);
 
         let mut insert = connection

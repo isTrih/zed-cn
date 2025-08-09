@@ -1406,20 +1406,20 @@ impl OutlinePanel {
         let context_menu = ContextMenu::build(window, cx, |menu, _, _| {
             menu.context(self.focus_handle.clone())
                 .when(cfg!(target_os = "macos"), |menu| {
-                    menu.action("Reveal in Finder", Box::new(RevealInFileManager))
+                    menu.action("在 文件管理器 中显示", Box::new(RevealInFileManager))
                 })
                 .when(cfg!(not(target_os = "macos")), |menu| {
                     menu.action("Reveal in File Manager", Box::new(RevealInFileManager))
                 })
-                .action("Open in Terminal", Box::new(OpenInTerminal))
+                .action("在终端打开", Box::new(OpenInTerminal))
                 .when(is_unfoldable, |menu| {
-                    menu.action("Unfold Directory", Box::new(UnfoldDirectory))
+                    menu.action("展开目录", Box::new(UnfoldDirectory))
                 })
                 .when(is_foldable, |menu| {
-                    menu.action("Fold Directory", Box::new(FoldDirectory))
+                    menu.action("折叠目录", Box::new(FoldDirectory))
                 })
                 .separator()
-                .action("Copy Path", Box::new(zed_actions::workspace::CopyPath))
+                .action("复制路径", Box::new(zed_actions::workspace::CopyPath))
                 .action(
                     "Copy Relative Path",
                     Box::new(zed_actions::workspace::CopyRelativePath),
@@ -2359,9 +2359,9 @@ impl OutlinePanel {
                             .map(|icon| icon.color(color).into_any_element());
                             (icon, file_name(path.as_ref()))
                         }
-                        None => (None, "Untitled".to_string()),
+                        None => (None, "无标题".to_string()),
                     },
-                    None => (None, "Unknown buffer".to_string()),
+                    None => (None, "未知缓冲区".to_string()),
                 };
                 (
                     ElementId::from(external_file.buffer_id.to_proto() as usize),
@@ -5007,7 +5007,7 @@ fn file_name(path: &Path) -> String {
 
 impl Panel for OutlinePanel {
     fn persistent_name() -> &'static str {
-        "Outline Panel"
+        "大纲面板"
     }
 
     fn position(&self, _: &Window, cx: &App) -> DockPosition {
@@ -5055,7 +5055,7 @@ impl Panel for OutlinePanel {
     }
 
     fn icon_tooltip(&self, _window: &Window, _: &App) -> Option<&'static str> {
-        Some("Outline Panel")
+        Some("大纲面板")
     }
 
     fn toggle_action(&self) -> Box<dyn Action> {

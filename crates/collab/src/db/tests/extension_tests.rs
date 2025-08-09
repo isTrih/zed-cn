@@ -36,7 +36,7 @@ async fn test_extensions(db: &Arc<Database>) {
                     NewExtensionVersion {
                         name: "Extension 1".into(),
                         version: semver::Version::parse("0.0.1").unwrap(),
-                        description: "an extension".into(),
+                        description: "一个扩展".into(),
                         authors: vec!["max".into()],
                         repository: "ext1/repo".into(),
                         schema_version: 1,
@@ -47,7 +47,7 @@ async fn test_extensions(db: &Arc<Database>) {
                     NewExtensionVersion {
                         name: "Extension One".into(),
                         version: semver::Version::parse("0.0.2").unwrap(),
-                        description: "a good extension".into(),
+                        description: "一个好的扩展".into(),
                         authors: vec!["max".into(), "marshall".into()],
                         repository: "ext1/repo".into(),
                         schema_version: 1,
@@ -62,7 +62,7 @@ async fn test_extensions(db: &Arc<Database>) {
                 vec![NewExtensionVersion {
                     name: "Extension Two".into(),
                     version: semver::Version::parse("0.2.0").unwrap(),
-                    description: "a great extension".into(),
+                    description: "一个很棒的扩展".into(),
                     authors: vec!["marshall".into()],
                     repository: "ext2/repo".into(),
                     schema_version: 0,
@@ -215,7 +215,7 @@ async fn test_extensions(db: &Arc<Database>) {
                 vec![NewExtensionVersion {
                     name: "Extension One".into(),
                     version: semver::Version::parse("0.0.3").unwrap(),
-                    description: "a real good extension".into(),
+                    description: "一个真正好的扩展".into(),
                     authors: vec!["max".into(), "marshall".into()],
                     repository: "ext1/repo".into(),
                     schema_version: 1,
@@ -229,7 +229,7 @@ async fn test_extensions(db: &Arc<Database>) {
                 vec![NewExtensionVersion {
                     name: "Extension Two".into(),
                     version: semver::Version::parse("0.1.0").unwrap(),
-                    description: "an old extension".into(),
+                    description: "一个旧扩展".into(),
                     authors: vec!["marshall".into()],
                     repository: "ext2/repo".into(),
                     schema_version: 0,
@@ -323,7 +323,7 @@ async fn test_extensions_by_id(db: &Arc<Database>) {
                     NewExtensionVersion {
                         name: "Extension 1".into(),
                         version: semver::Version::parse("0.0.1").unwrap(),
-                        description: "an extension".into(),
+                        description: "一个扩展".into(),
                         authors: vec!["max".into()],
                         repository: "ext1/repo".into(),
                         schema_version: 1,
@@ -337,7 +337,7 @@ async fn test_extensions_by_id(db: &Arc<Database>) {
                     NewExtensionVersion {
                         name: "Extension 1".into(),
                         version: semver::Version::parse("0.0.2").unwrap(),
-                        description: "a good extension".into(),
+                        description: "一个好的扩展".into(),
                         authors: vec!["max".into()],
                         repository: "ext1/repo".into(),
                         schema_version: 1,
@@ -352,7 +352,7 @@ async fn test_extensions_by_id(db: &Arc<Database>) {
                     NewExtensionVersion {
                         name: "Extension 1".into(),
                         version: semver::Version::parse("0.0.3").unwrap(),
-                        description: "a real good extension".into(),
+                        description: "一个真正好的扩展".into(),
                         authors: vec!["max".into(), "marshall".into()],
                         repository: "ext1/repo".into(),
                         schema_version: 1,
@@ -371,7 +371,7 @@ async fn test_extensions_by_id(db: &Arc<Database>) {
                 vec![NewExtensionVersion {
                     name: "Extension 2".into(),
                     version: semver::Version::parse("0.2.0").unwrap(),
-                    description: "a great extension".into(),
+                    description: "一个很棒的扩展".into(),
                     authors: vec!["marshall".into()],
                     repository: "ext2/repo".into(),
                     schema_version: 0,

@@ -56,7 +56,7 @@ impl super::LspAdapter for CLspAdapter {
             .assets
             .iter()
             .find(|asset| asset.name == asset_name)
-            .with_context(|| format!("no asset found matching {asset_name:?}"))?;
+            .with_context(|| format!("找不到匹配的资源 {asset_name:?}"))?;
         let version = GitHubLspBinaryVersion {
             name: release.tag_name,
             url: asset.browser_download_url.clone(),

@@ -877,7 +877,7 @@ impl Worktree {
                             let abs_path = this.read_with(cx, |worktree, _| {
                                 worktree
                                     .absolutize(&path)
-                                    .with_context(|| format!("absolutizing {path:?}"))
+                                    .with_context(|| format!("绝对化 {path:?}"))
                             })??;
                             Ok(CreatedEntry::Excluded { abs_path })
                         }
@@ -1483,10 +1483,10 @@ impl LocalWorktree {
                         .metadata(&abs_path)
                         .await
                         .with_context(|| {
-                            format!("Loading metadata for excluded file {abs_path:?}")
+                            format!("正在加载被排除文件 {abs_path:?} 的元数据")
                         })?
                         .with_context(|| {
-                            format!("Excluded file {abs_path:?} got removed during loading")
+                            format!("在加载过程中，排除的文件 {abs_path:?} 被移除了")
                         })?;
                     Arc::new(File {
                         entry_id: None,
@@ -1538,10 +1538,10 @@ impl LocalWorktree {
                         .metadata(&abs_path)
                         .await
                         .with_context(|| {
-                            format!("Loading metadata for excluded file {abs_path:?}")
+                            format!("正在加载被排除文件 {abs_path:?} 的元数据")
                         })?
                         .with_context(|| {
-                            format!("Excluded file {abs_path:?} got removed during loading")
+                            format!("在加载过程中，排除的文件 {abs_path:?} 被移除了")
                         })?;
                     Arc::new(File {
                         entry_id: None,
@@ -1583,7 +1583,7 @@ impl LocalWorktree {
         let path = path.into();
         let abs_path = match self.absolutize(&path) {
             Ok(path) => path,
-            Err(e) => return Task::ready(Err(e.context(format!("absolutizing path {path:?}")))),
+            Err(e) => return Task::ready(Err(e.context(format!("绝对化路径 {path:?}")))),
         };
         let path_excluded = self.settings.is_path_excluded(&abs_path);
         let fs = self.fs.clone();
@@ -1592,11 +1592,11 @@ impl LocalWorktree {
             if is_dir {
                 fs.create_dir(&task_abs_path)
                     .await
-                    .with_context(|| format!("creating directory {task_abs_path:?}"))
+                    .with_context(|| format!("创建目录 {task_abs_path:?}"))
             } else {
                 fs.write(&task_abs_path, content.as_deref().unwrap_or(&[]))
                     .await
-                    .with_context(|| format!("creating file {task_abs_path:?}"))
+                    .with_context(|| format!("创建文件 {task_abs_path:?}"))
             }
         });
 
@@ -1675,10 +1675,10 @@ impl LocalWorktree {
                     .metadata(&abs_path)
                     .await
                     .with_context(|| {
-                        format!("Fetching metadata after saving the excluded buffer {abs_path:?}")
+                        format!("保存排除缓冲区 {abs_path:?} 后获取元数据")
                     })?
                     .with_context(|| {
-                        format!("Excluded buffer {path:?} got removed during saving")
+                        format!("在保存过程中，排除的缓冲区 {path:?} 被移除了")
                     })?;
                 Ok(Arc::new(File {
                     worktree,
@@ -1800,7 +1800,7 @@ impl LocalWorktree {
                 },
             )
             .await
-            .with_context(|| format!("Renaming {abs_old_path:?} into {abs_new_path:?}"))
+            .with_context(|| format!("将 {abs_old_path:?} 重命名为 {abs_new_path:?}"))
         });
 
         cx.spawn(async move |this, cx| {
@@ -2271,7 +2271,7 @@ impl RemoteWorktree {
                     let abs_path = this.read_with(cx, |worktree, _| {
                         worktree
                             .absolutize(&new_path)
-                            .with_context(|| format!("absolutizing {new_path:?}"))
+                            .with_context(|| format!("绝对化 {new_path:?}"))
                     })??;
                     Ok(CreatedEntry::Excluded { abs_path })
                 }

@@ -10,7 +10,7 @@ pub(super) fn render_nav_button(
     focus_handle: FocusHandle,
 ) -> impl IntoElement {
     IconButton::new(
-        SharedString::from(format!("search-nav-button-{}", action.name())),
+        SharedString::from(format!("搜索导航按钮-{}", action.name())),
         icon,
     )
     .shape(IconButtonShape::Square)

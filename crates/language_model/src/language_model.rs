@@ -614,7 +614,7 @@ pub trait LanguageModelTool: 'static + DeserializeOwned + JsonSchema {
 /// An error that occurred when trying to authenticate the language model provider.
 #[derive(Debug, Error)]
 pub enum AuthenticateError {
-    #[error("credentials not found")]
+    #[error("未找到凭据")]
     CredentialsNotFound,
     #[error(transparent)]
     Other(#[from] anyhow::Error),

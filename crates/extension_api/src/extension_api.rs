@@ -79,7 +79,7 @@ pub trait Extension: Send + Sync {
         _language_server_id: &LanguageServerId,
         _worktree: &Worktree,
     ) -> Result<Command> {
-        Err("`language_server_command` not implemented".to_string())
+        Err("`language_server_command` 未实现".to_string())
     }
 
     /// Returns the initialization options to pass to the specified language server.
@@ -154,7 +154,7 @@ pub trait Extension: Send + Sync {
         _args: Vec<String>,
         _worktree: Option<&Worktree>,
     ) -> Result<SlashCommandOutput, String> {
-        Err("`run_slash_command` not implemented".to_string())
+        Err("`run_slash_command` 未实现".to_string())
     }
 
     /// Returns the command used to start a context server.

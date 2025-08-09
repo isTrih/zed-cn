@@ -164,7 +164,7 @@ pub fn os_version() -> String {
             )
             .to_string()
         } else {
-            "unknown".to_string()
+            "未知".to_string()
         }
     }
 }
@@ -613,7 +613,7 @@ mod tests {
             )]);
 
             let event = FlexibleEvent {
-                event_type: "test".to_string(),
+                event_type: "测试".to_string(),
                 event_properties,
             };
 
@@ -679,7 +679,7 @@ mod tests {
             )]);
 
             let event = FlexibleEvent {
-                event_type: "test".to_string(),
+                event_type: "测试".to_string(),
                 event_properties,
             };
 

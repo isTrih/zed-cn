@@ -922,7 +922,7 @@ impl LspLogView {
                     server_id: *server_id,
                     server_name: state.name.clone().unwrap_or(unknown_server.clone()),
                     server_kind: state.kind.clone(),
-                    worktree_root_name: "supplementary".to_string(),
+                    worktree_root_name: "补充".to_string(),
                     rpc_trace_enabled: state.rpc_state.is_some(),
                     selected_entry: self.active_entry_kind,
                     trace_level: lsp::TraceValue::Off,
@@ -938,7 +938,7 @@ impl LspLogView {
                             server_id,
                             server_name: name.clone(),
                             server_kind: state.kind.clone(),
-                            worktree_root_name: "supplementary".to_string(),
+                            worktree_root_name: "补充".to_string(),
                             rpc_trace_enabled: state.rpc_state.is_some(),
                             selected_entry: self.active_entry_kind,
                             trace_level: lsp::TraceValue::Off,
@@ -1660,7 +1660,7 @@ impl Render for LspLogToolbarItemView {
                     ),
             )
             .child(
-                Button::new("clear_log_button", "Clear").on_click(cx.listener(
+                Button::new("clear_log_button", "清除").on_click(cx.listener(
                     |this, _, window, cx| {
                         if let Some(log_view) = this.log_view.as_ref() {
                             log_view.update(cx, |log_view, cx| {

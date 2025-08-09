@@ -733,7 +733,7 @@ impl RulesLibrary {
             let confirmation = window.prompt(
                 PromptLevel::Warning,
                 &format!(
-                    "Are you sure you want to delete {}",
+                    "您确定要删除 {} 吗",
                     metadata.title.unwrap_or("Untitled".into())
                 ),
                 None,
@@ -1127,7 +1127,7 @@ impl RulesLibrary {
                                                         "Token Estimation",
                                                         None,
                                                         format!(
-                                                            "Model: {}",
+                                                            "模型：{}",
                                                             model
                                                                 .as_ref()
                                                                 .map(|model| model.name().0)

@@ -999,7 +999,7 @@ where
                 log::error!("{err:?}");
                 if let Ok(prompt) = cx.update(|window, cx| {
                     let detail =
-                        f(err, window, cx).unwrap_or_else(|| format!("{err}. Please try again."));
+                        f(err, window, cx).unwrap_or_else(|| format!("{err}。请重试。"));
                     window.prompt(PromptLevel::Critical, &msg, Some(&detail), &["Ok"], cx)
                 }) {
                     prompt.await.ok();

@@ -270,7 +270,7 @@ impl Render for GoToLine {
             Some((line, Some(character))) => {
                 format!("Go to line {line}, character {character}").into()
             }
-            Some((line, None)) => format!("Go to line {line}").into(),
+            Some((line, None)) => format!("跳转到第 {line} 行").into(),
             None => self.current_text.clone(),
         };
 

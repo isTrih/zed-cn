@@ -350,9 +350,9 @@ mod tests {
     fn test_main_heading_buttons_get_removed() {
         let html = indoc! {r##"
             <div class="main-heading">
-                <h1>Crate <a class="mod" href="#">serde</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1>
+                <h1>Crate <a class="mod" href="#">serde</a><button id="copy-path" title="复制项目路径到剪贴板">Copy item path</button></h1>
                 <span class="out-of-band">
-                    <a class="src" href="../src/serde/lib.rs.html#1-340">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>−</span>]</button>
+                    <a class="src" href="../src/serde/lib.rs.html#1-340">source</a> · <button id="toggle-all-docs" title="折叠所有文档">[<span>−</span>]</button>
                 </span>
             </div>
         "##};
@@ -533,12 +533,12 @@ mod tests {
             <ul class="item-table">
             <li><div class="item-name"><a class="struct" href="struct.Error.html" title="struct axum::Error">Error</a></div><div class="desc docblock-short">Errors that can happen when using axum.</div></li>
             <li><div class="item-name"><a class="struct" href="struct.Extension.html" title="struct axum::Extension">Extension</a></div><div class="desc docblock-short">Extractor and response for extensions.</div></li>
-            <li><div class="item-name"><a class="struct" href="struct.Form.html" title="struct axum::Form">Form</a><span class="stab portability" title="Available on crate feature `form` only"><code>form</code></span></div><div class="desc docblock-short">URL encoded extractor and response.</div></li>
-            <li><div class="item-name"><a class="struct" href="struct.Json.html" title="struct axum::Json">Json</a><span class="stab portability" title="Available on crate feature `json` only"><code>json</code></span></div><div class="desc docblock-short">JSON Extractor / Response.</div></li>
+            <li><div class="item-name"><a class="struct" href="struct.Form.html" title="struct axum::Form">Form</a><span class="stab portability" title="仅在 crate 特性 `form` 上可用"><code>form</code></span></div><div class="desc docblock-short">URL encoded extractor and response.</div></li>
+            <li><div class="item-name"><a class="struct" href="struct.Json.html" title="struct axum::Json">Json</a><span class="stab portability" title="仅在 crate 特性 `json` 上可用"><code>json</code></span></div><div class="desc docblock-short">JSON Extractor / Response.</div></li>
             <li><div class="item-name"><a class="struct" href="struct.Router.html" title="struct axum::Router">Router</a></div><div class="desc docblock-short">The router type for composing handlers and services.</div></li></ul>
             <h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2>
             <ul class="item-table">
-            <li><div class="item-name"><a class="fn" href="fn.serve.html" title="fn axum::serve">serve</a><span class="stab portability" title="Available on crate feature `tokio` and (crate features `http1` or `http2`) only"><code>tokio</code> and (<code>http1</code> or <code>http2</code>)</span></div><div class="desc docblock-short">Serve the service with the supplied listener.</div></li>
+            <li><div class="item-name"><a class="fn" href="fn.serve.html" title="fn axum::serve">serve</a><span class="stab portability" title="仅在 crate 特性 `tokio` 和（crate 特性 `http1` 或 `http2`）上可用"><code>tokio</code> and (<code>http1</code> or <code>http2</code>)</span></div><div class="desc docblock-short">Serve the service with the supplied listener.</div></li>
             </ul>
         "##};
         let expected = indoc! {r#"

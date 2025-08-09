@@ -41,7 +41,7 @@ pub async fn seed(config: &Config, db: &Database, force: bool) -> anyhow::Result
         .context("called seed with no SEED_PATH")?;
 
     let seed_config = load_admins(seed_path)
-        .context(format!("failed to load {}", seed_path.to_string_lossy()))?;
+        .context(format!("加载 {} 失败", seed_path.to_string_lossy()))?;
 
     let mut first_user = None;
     let mut others = vec![];

@@ -733,8 +733,8 @@ pub(super) async fn format_with_prettier(
     let (prettier_path, prettier_task) = prettier_instance?;
 
     let prettier_description = match prettier_path.as_ref() {
-        Some(path) => format!("prettier at {path:?}"),
-        None => "default prettier instance".to_string(),
+        Some(path) => format!("在 {path:?} 处的 prettier"),
+        None => "默认 prettier 实例".to_string(),
     };
 
     match prettier_task.await {
@@ -749,7 +749,7 @@ pub(super) async fn format_with_prettier(
             let format_result = prettier
                 .format(buffer, buffer_path, ignore_dir, cx)
                 .await
-                .with_context(|| format!("{} failed to format buffer", prettier_description));
+                .with_context(|| format!("{} 格式化缓冲区失败", prettier_description));
 
             Some(format_result)
         }
@@ -907,7 +907,7 @@ async fn install_prettier_packages(
                     .npm_package_latest_version(package_name)
                     .await
                     .with_context(|| {
-                        format!("fetching latest npm version for package {returned_package_name}")
+                        format!("获取包 {returned_package_name} 的最新 npm 版本")
                     })?;
                 anyhow::Ok((returned_package_name, latest_version))
             }),
@@ -917,7 +917,7 @@ async fn install_prettier_packages(
 
     let default_prettier_dir = default_prettier_dir().as_path();
     match fs.metadata(default_prettier_dir).await.with_context(|| {
-        format!("fetching FS metadata for default prettier dir {default_prettier_dir:?}")
+        format!("获取默认 prettier 目录 {default_prettier_dir:?} 的 FS 元数据")
     })? {
         Some(prettier_dir_metadata) => anyhow::ensure!(
             prettier_dir_metadata.is_dir,
@@ -926,7 +926,7 @@ async fn install_prettier_packages(
         None => fs
             .create_dir(default_prettier_dir)
             .await
-            .with_context(|| format!("creating default prettier dir {default_prettier_dir:?}"))?,
+            .with_context(|| format!("创建默认 prettier 目录 {default_prettier_dir:?}"))?,
     }
 
     log::info!("Installing default prettier and plugins: {packages_to_versions:?}");
@@ -950,7 +950,7 @@ async fn save_prettier_server_file(fs: &dyn Fs) -> anyhow::Result<()> {
     .await
     .with_context(|| {
         format!(
-            "writing {} file at {prettier_wrapper_path:?}",
+            "在 {prettier_wrapper_path:?} 处写入 {} 文件",
             prettier::PRETTIER_SERVER_FILE
         )
     })?;

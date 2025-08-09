@@ -77,7 +77,7 @@ impl SearchOptions {
             SearchOptions::CASE_SENSITIVE => "Match Case Sensitively",
             SearchOptions::INCLUDE_IGNORED => "Also search files ignored by configuration",
             SearchOptions::REGEX => "Use Regular Expressions",
-            _ => panic!("{:?} is not a named SearchOption", self),
+            _ => panic!("{:?} 不是一个命名的搜索选项", self),
         }
     }
 
@@ -87,7 +87,7 @@ impl SearchOptions {
             SearchOptions::CASE_SENSITIVE => ui::IconName::CaseSensitive,
             SearchOptions::INCLUDE_IGNORED => ui::IconName::Sliders,
             SearchOptions::REGEX => ui::IconName::Regex,
-            _ => panic!("{:?} is not a named SearchOption", self),
+            _ => panic!("{:?} 不是一个命名的搜索选项", self),
         }
     }
 
@@ -97,7 +97,7 @@ impl SearchOptions {
             SearchOptions::CASE_SENSITIVE => Box::new(ToggleCaseSensitive),
             SearchOptions::INCLUDE_IGNORED => Box::new(ToggleIncludeIgnored),
             SearchOptions::REGEX => Box::new(ToggleRegex),
-            _ => panic!("{:?} is not a named SearchOption", self),
+            _ => panic!("{:?} 不是一个命名的搜索选项", self),
         }
     }
 

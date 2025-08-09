@@ -295,7 +295,7 @@ impl CosmicTextSystemState {
                 .0,
             )
             .clone()
-            .with_context(|| format!("no image for {params:?} in font {font:?}"))?;
+            .with_context(|| format!("在字体 {font:?} 中找不到 {params:?} 的图像"))?;
         Ok(Bounds {
             origin: point(image.placement.left.into(), (-image.placement.top).into()),
             size: size(image.placement.width.into(), image.placement.height.into()),
@@ -330,7 +330,7 @@ impl CosmicTextSystemState {
                     .0,
                 )
                 .clone()
-                .with_context(|| format!("no image for {params:?} in font {font:?}"))?;
+                .with_context(|| format!("在字体 {font:?} 中找不到 {params:?} 的图像"))?;
 
             if params.is_emoji {
                 // Convert from RGBA to BGRA.

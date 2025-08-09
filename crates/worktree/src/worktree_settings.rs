@@ -124,5 +124,5 @@ impl Settings for WorktreeSettings {
 }
 
 fn path_matchers(values: &[String], context: &'static str) -> anyhow::Result<PathMatcher> {
-    PathMatcher::new(values).with_context(|| format!("Failed to parse globs from {}", context))
+    PathMatcher::new(values).with_context(|| format!("无法从 {} 解析通配符", context))
 }

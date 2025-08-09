@@ -3086,7 +3086,7 @@ impl InlayHints {
             .map(|lsp_resolve_state| {
                 let value = lsp_resolve_state.value.as_deref().map(|value| {
                     serde_json::from_str::<Option<lsp::LSPAny>>(value)
-                        .with_context(|| format!("incorrect proto inlay hint message: non-json resolve state {lsp_resolve_state:?}"))
+                        .with_context(|| format!("不正确的 proto 嵌入提示消息：非 JSON 解析状态 {lsp_resolve_state:?}"))
                 }).transpose()?.flatten();
                 anyhow::Ok((LanguageServerId(lsp_resolve_state.server_id as usize), value))
             })
@@ -3096,7 +3096,7 @@ impl InlayHints {
             1 => {
                 let (server_id, lsp_resolve_state) = resolve_state_data.with_context(|| {
                     format!(
-                        "No lsp resolve data for the hint that can be resolved: {message_hint:?}"
+                        "无法解析的提示的 LSP 解析数据：{message_hint:?}"
                     )
                 })?;
                 ResolveState::CanResolve(server_id, lsp_resolve_state)

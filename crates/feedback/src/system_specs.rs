@@ -94,7 +94,7 @@ impl SystemSpecs {
 
 impl Display for SystemSpecs {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let os_information = format!("OS: {} {}", self.os_name, self.os_version);
+        let os_information = format!("操作系统：{} {}", self.os_name, self.os_version);
         let app_version_information = format!(
             "Zed: v{} ({}) {}{}",
             self.app_version,
@@ -116,8 +116,8 @@ impl Display for SystemSpecs {
         let system_specs = [
             app_version_information,
             os_information,
-            format!("Memory: {}", human_bytes(self.memory as f64)),
-            format!("Architecture: {}", self.architecture),
+            format!("内存：{}", human_bytes(self.memory as f64)),
+            format!("架构：{}", self.architecture),
         ]
         .into_iter()
         .chain(

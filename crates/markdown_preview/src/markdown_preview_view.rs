@@ -472,7 +472,7 @@ impl Item for MarkdownPreviewView {
                 local_file
                     .abs_path(cx)
                     .file_name()
-                    .map(|name| format!("Preview {}", name.to_string_lossy()).into())
+                    .map(|name| format!("{} 预览", name.to_string_lossy()).into())
             })
             .unwrap_or_else(|| SharedString::from("Markdown Preview"))
     }

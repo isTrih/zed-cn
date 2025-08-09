@@ -249,7 +249,7 @@ async fn index_rustdoc(
 
             #[cfg(not(debug_assertions))]
             {
-                format!("failed to fetch {item:?}")
+                format!("获取 {item:?} 失败")
             }
         })?
         else {

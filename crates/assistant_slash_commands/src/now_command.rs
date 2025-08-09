@@ -53,7 +53,7 @@ impl SlashCommand for NowSlashCommand {
         _cx: &mut App,
     ) -> Task<SlashCommandResult> {
         let now = Local::now();
-        let text = format!("Today is {now}.", now = now.to_rfc2822());
+        let text = format!("今天是 {now}。", now = now.to_rfc2822());
         let range = 0..text.len();
 
         Task::ready(Ok(SlashCommandOutput {

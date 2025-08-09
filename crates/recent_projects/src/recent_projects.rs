@@ -203,7 +203,7 @@ impl PickerDelegate for RecentProjectsDelegate {
             )
         };
         Arc::from(format!(
-            "{reuse_window} reuses this window, {create_window} opens a new one",
+            "{reuse_window} 重用此窗口，{create_window} 打开新窗口",
         ))
     }
 
@@ -367,9 +367,9 @@ impl PickerDelegate for RecentProjectsDelegate {
 
     fn no_matches_text(&self, _window: &mut Window, _cx: &mut App) -> Option<SharedString> {
         let text = if self.workspaces.is_empty() {
-            "Recently opened projects will show up here".into()
+            "最近打开的项目会显示在这里".into()
         } else {
-            "No matches".into()
+            "无匹配项".into()
         };
         Some(text)
     }
@@ -445,7 +445,7 @@ impl PickerDelegate for RecentProjectsDelegate {
 
                                     this.delegate.delete_recent_project(ix, window, cx)
                                 }))
-                                .tooltip(Tooltip::text("Delete from Recent Projects...")),
+                                .tooltip(Tooltip::text("从最近项目中删除…")),
                         )
                         .into_any_element();
 
@@ -690,7 +690,7 @@ mod tests {
             })
             .unwrap();
         workspace
-            .update(cx, |workspace, _, _| assert!(workspace.is_edited(), "After inserting more text into the editor without saving, we should have a dirty project"))
+            .update(cx, |workspace, _, _| assert!(workspace.is_edited(), "在不保存的情况下向编辑器插入更多文本后，我们应该有一个未保存的项目"))
             .unwrap();
 
         let recent_projects_picker = open_recent_projects(&workspace, cx);
@@ -703,7 +703,7 @@ mod tests {
                         candidate_id: 0,
                         score: 1.0,
                         positions: Vec::new(),
-                        string: "fake candidate".to_string(),
+                        string: "虚拟候选".to_string(),
                     }];
                     delegate.set_workspaces(vec![(
                         WorkspaceId::default(),
@@ -715,31 +715,31 @@ mod tests {
 
         assert!(
             !cx.has_pending_prompt(),
-            "Should have no pending prompt on dirty project before opening the new recent project"
+            "在打开新近项目之前，未保存的项目不应有未处理的提示"
         );
         cx.dispatch_action(*workspace, menu::Confirm);
         workspace
             .update(cx, |workspace, _, cx| {
                 assert!(
                     workspace.active_modal::<RecentProjects>(cx).is_none(),
-                    "Should remove the modal after selecting new recent project"
+                    "选择新近项目后应移除模态框"
                 )
             })
             .unwrap();
         assert!(
             cx.has_pending_prompt(),
-            "Dirty workspace should prompt before opening the new recent project"
+            "未保存的工作区在打开新近项目之前应提示"
         );
         cx.simulate_prompt_answer("Cancel");
         assert!(
             !cx.has_pending_prompt(),
-            "Should have no pending prompt after cancelling"
+            "取消后不应有未处理的提示"
         );
         workspace
             .update(cx, |workspace, _, _| {
                 assert!(
                     workspace.is_edited(),
-                    "Should be in the same dirty project after cancelling"
+                    "取消后应在同一个未保存的项目中"
                 )
             })
             .unwrap();

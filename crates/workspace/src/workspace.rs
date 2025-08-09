@@ -500,7 +500,7 @@ impl Column for WorkspaceId {
     fn column(statement: &mut Statement, start_index: i32) -> Result<(Self, i32)> {
         i64::column(statement, start_index)
             .map(|(i, next_index)| (Self(i), next_index))
-            .with_context(|| format!("Failed to read WorkspaceId at index {start_index}"))
+            .with_context(|| format!("无法读取 WorkspaceId，索引 {start_index}"))
     }
 }
 impl From<WorkspaceId> for i64 {
@@ -2267,9 +2267,9 @@ impl Workspace {
                     let answer = cx.update(|window, cx| {
                         window.prompt(
                             PromptLevel::Warning,
-                            "Do you want to leave the current call?",
+                            "您要离开当前通话吗？",
                             None,
-                            &["Close window and hang up", "Cancel"],
+                            &["关闭窗口并挂断", "取消"],
                             cx,
                         )
                     })?;
@@ -2437,7 +2437,7 @@ impl Workspace {
                             PromptLevel::Warning,
                             &"Do you want to save all changes in the following files?",
                             Some(&detail),
-                            &["Save all", "Discard all", "Cancel"],
+                            &["保存全部", "丢弃全部", "取消"],
                             cx,
                         )
                     })?;
@@ -3226,7 +3226,7 @@ impl Workspace {
                 .update_in(cx, |workspace, window, cx| {
                     workspace.open_paths(vec![abs_path.clone()], options, None, window, cx)
                 })
-                .with_context(|| format!("open abs path {abs_path:?} task spawn"))?
+                .with_context(|| format!("打开绝对路径 {abs_path:?} 任务生成"))?
                 .await;
             anyhow::ensure!(
                 open_paths_task_result.len() == 1,
@@ -3238,7 +3238,7 @@ impl Workspace {
                 .expect("ensured single task result")
             {
                 Some(open_result) => {
-                    open_result.with_context(|| format!("open abs path {abs_path:?} task join"))
+                    open_result.with_context(|| format!("打开绝对路径 {abs_path:?} 任务加入"))
                 }
                 None => anyhow::bail!("open abs path {abs_path:?} task returned None"),
             }
@@ -4376,7 +4376,7 @@ impl Workspace {
         }
 
         if title.is_empty() {
-            title = "empty project".to_string();
+            title = "空项目".to_string();
         }
 
         if let Some(path) = self.active_item(cx).and_then(|item| item.project_path(cx)) {
@@ -6935,7 +6935,7 @@ async fn join_channel_internal(
                         PromptLevel::Warning,
                         "Do you want to switch channels?",
                         Some("Leaving this call will unshare your current project."),
-                        &["Yes, Join Channel", "Cancel"],
+                        &["Yes, Join Channel", "取消"],
                         cx,
                     )
                 })?
@@ -7096,7 +7096,7 @@ pub fn join_channel(
                                 "This channel is private, and you do not have access. Please ask someone to add you and try again.".into()
                             }
                             ErrorCode::Disconnected => "Please check your internet connection and try again.".into(),
-                            _ => format!("{}\n\nPlease try again.", err).into(),
+                            _ => format!("{}\n\n请重试。", err).into(),
                         };
                         window.prompt(
                             PromptLevel::Critical,
@@ -7662,7 +7662,7 @@ pub fn reload(reload: &Reload, cx: &mut App) {
                     PromptLevel::Info,
                     "Are you sure you want to restart?",
                     None,
-                    &["Restart", "Cancel"],
+                    &["Restart", "取消"],
                     cx,
                 )
             })
@@ -8375,7 +8375,7 @@ mod tests {
             w.prepare_to_close(CloseIntent::CloseWindow, window, cx)
         });
         cx.executor().run_until_parked();
-        cx.simulate_prompt_answer("Cancel"); // cancel save all
+        cx.simulate_prompt_answer("取消"); // cancel save all
         cx.executor().run_until_parked();
         assert!(!cx.has_pending_prompt());
         assert!(!task.await.unwrap());
@@ -8474,7 +8474,7 @@ mod tests {
         cx.executor().run_until_parked();
 
         assert!(cx.has_pending_prompt());
-        cx.simulate_prompt_answer("Save all");
+        cx.simulate_prompt_answer("保存全部");
 
         cx.executor().run_until_parked();
 
@@ -8630,7 +8630,7 @@ mod tests {
         assert!(!msg.contains("3.txt"));
         assert!(!msg.contains("4.txt"));
 
-        cx.simulate_prompt_answer("Cancel");
+        cx.simulate_prompt_answer("取消");
         close.await;
 
         left_pane
@@ -8660,7 +8660,7 @@ mod tests {
         // 4 to be saved too.
         // assert!(!details.contains("4.txt"));
 
-        cx.simulate_prompt_answer("Save all");
+        cx.simulate_prompt_answer("保存全部");
 
         cx.executor().run_until_parked();
         close.await;

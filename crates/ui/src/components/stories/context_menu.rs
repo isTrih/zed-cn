@@ -14,7 +14,7 @@ fn build_menu(
     ContextMenu::build(window, cx, |menu, _, _| {
         menu.header(header)
             .separator()
-            .action("Print current time", Box::new(PrintCurrentDate))
+            .action("打印当前时间", Box::new(PrintCurrentDate))
             .entry(
                 "Print best food",
                 Some(Box::new(PrintBestFood)),

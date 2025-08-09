@@ -1577,7 +1577,7 @@ impl Pane {
                         .file_name()
                         .and_then(|name| name.to_str().map(ToOwned::to_owned))
                 });
-                file_names.insert(filename.unwrap_or("untitled".to_string()));
+                file_names.insert(filename.unwrap_or("无标题".to_string()));
             });
         }
         if file_names.len() > 6 {
@@ -1641,7 +1641,7 @@ impl Pane {
                         PromptLevel::Warning,
                         "Do you want to save changes to the following files?",
                         Some(&detail),
-                        &["Save all", "Discard all", "Cancel"],
+                        &["保存全部", "丢弃全部", "取消"],
                         cx,
                     )
                 })?;
@@ -1682,7 +1682,7 @@ impl Pane {
                                     PromptLevel::Warning,
                                     &format!("Unable to save file: {}", &err),
                                     Some(&detail),
-                                    &["Close Without Saving", "Cancel"],
+                                    &["Close Without Saving", "取消"],
                                     cx,
                                 )
                             })?;
@@ -1871,7 +1871,7 @@ impl Pane {
         save_intent: SaveIntent,
         cx: &mut AsyncWindowContext,
     ) -> Result<bool> {
-        const CONFLICT_MESSAGE: &str = "This file has changed on disk since you started editing it. Do you want to overwrite it?";
+        const CONFLICT_MESSAGE: &str = "自您开始编辑以来，此文件在磁盘上已更改。您要覆盖它吗？";
 
         const DELETED_MESSAGE: &str = "This file has been deleted on disk since you started editing it. Do you want to recreate it?";
 
@@ -1929,7 +1929,7 @@ impl Pane {
                         PromptLevel::Warning,
                         DELETED_MESSAGE,
                         None,
-                        &["Save", "Close", "Cancel"],
+                        &["保存", "关闭", "取消"],
                         cx,
                     )
                 })?;
@@ -1963,7 +1963,7 @@ impl Pane {
                         PromptLevel::Warning,
                         CONFLICT_MESSAGE,
                         None,
-                        &["Overwrite", "Discard", "Cancel"],
+                        &["覆盖", "丢弃", "取消"],
                         cx,
                     )
                 })?;
@@ -2007,7 +2007,7 @@ impl Pane {
                                 PromptLevel::Warning,
                                 &prompt,
                                 None,
-                                &["Save", "Don't Save", "Cancel"],
+                                &["保存", "不保存", "取消"],
                                 cx,
                             ))
                         } else {
@@ -2019,7 +2019,7 @@ impl Pane {
                         pane.update(cx, |pane, _| {
                             if !pane.save_modals_spawned.remove(&item_id) {
                                 debug_panic!(
-                                    "save modal was not present in spawned modals after awaiting for its answer"
+                                    "在等待其答案后，保存模态框未出现在生成的模态框中"
                                 )
                             }
                         })?;
@@ -2622,7 +2622,7 @@ impl Pane {
                     if let Some(pane) = pane.upgrade() {
                         menu = menu
                             .entry(
-                                "Close",
+                                "关闭",
                                 Some(Box::new(close_active_item_action)),
                                 window.handler_for(&pane, move |pane, window, cx| {
                                     pane.close_item_by_id(item_id, SaveIntent::Close, window, cx)
@@ -2687,7 +2687,7 @@ impl Pane {
                                     })),
                             ))
                             .entry(
-                                "Close All",
+                                "关闭所有",
                                 Some(Box::new(close_all_items_action.clone())),
                                 window.handler_for(&pane, move |pane, window, cx| {
                                     pane.close_all_items(&close_all_items_action, window, cx)
@@ -2775,7 +2775,7 @@ impl Pane {
                                 .separator()
                                 .when(visible_in_project_panel, |menu| {
                                     menu.entry(
-                                        "Reveal In Project Panel",
+                                        "在项目面板中显示",
                                         Some(Box::new(RevealInProjectPanel::default())),
                                         window.handler_for(&pane, move |pane, _, cx| {
                                             pane.project
@@ -3233,7 +3233,7 @@ impl Pane {
             .update(cx, |workspace, cx| {
                 if workspace.project().read(cx).is_via_collab() {
                     workspace.show_error(
-                        &anyhow::anyhow!("Cannot drop files on a remote project"),
+                        &anyhow::anyhow!("无法在远程项目上放置文件"),
                         cx,
                     );
                     true
@@ -3377,13 +3377,13 @@ fn default_render_tab_bar_buttons(
             PopoverMenu::new("pane-tab-bar-popover-menu")
                 .trigger_with_tooltip(
                     IconButton::new("plus", IconName::Plus).icon_size(IconSize::Small),
-                    Tooltip::text("New..."),
+                    Tooltip::text("新建…"),
                 )
                 .anchor(Corner::TopRight)
                 .with_handle(pane.new_item_context_menu_handle.clone())
                 .menu(move |window, cx| {
                     Some(ContextMenu::build(window, cx, |menu, _, _| {
-                        menu.action("New File", NewFile.boxed_clone())
+                        menu.action("新建文件", NewFile.boxed_clone())
                             .action("Open File", ToggleFileFinder::default().boxed_clone())
                             .separator()
                             .action(
@@ -3397,7 +3397,7 @@ fn default_render_tab_bar_buttons(
                             )
                             .action("Search Symbols", ToggleProjectSymbols.boxed_clone())
                             .separator()
-                            .action("New Terminal", NewTerminal.boxed_clone())
+                            .action("新建终端", NewTerminal.boxed_clone())
                     }))
                 }),
         )
@@ -3405,16 +3405,16 @@ fn default_render_tab_bar_buttons(
             PopoverMenu::new("pane-tab-bar-split")
                 .trigger_with_tooltip(
                     IconButton::new("split", IconName::Split).icon_size(IconSize::Small),
-                    Tooltip::text("Split Pane"),
+                    Tooltip::text("拆分窗格"),
                 )
                 .anchor(Corner::TopRight)
                 .with_handle(pane.split_item_context_menu_handle.clone())
                 .menu(move |window, cx| {
                     ContextMenu::build(window, cx, |menu, _, _| {
-                        menu.action("Split Right", SplitRight.boxed_clone())
-                            .action("Split Left", SplitLeft.boxed_clone())
-                            .action("Split Up", SplitUp.boxed_clone())
-                            .action("Split Down", SplitDown.boxed_clone())
+                        menu.action("向右拆分", SplitRight.boxed_clone())
+                            .action("向左拆分", SplitLeft.boxed_clone())
+                            .action("向上拆分", SplitUp.boxed_clone())
+                            .action("向下拆分", SplitDown.boxed_clone())
                     })
                     .into()
                 }),
@@ -3430,7 +3430,7 @@ fn default_render_tab_bar_buttons(
                 }))
                 .tooltip(move |window, cx| {
                     Tooltip::for_action(
-                        if zoomed { "Zoom Out" } else { "Zoom In" },
+                        if zoomed { "缩小" } else { "放大" },
                         &ToggleZoom,
                         window,
                         cx,
@@ -3652,7 +3652,7 @@ impl Render for Pane {
                                 placeholder
                             } else {
                                 placeholder.child(
-                                    Label::new("Open a file or project to get started.")
+                                    Label::new("打开文件或项目以开始。")
                                         .color(Color::Muted),
                                 )
                             }
@@ -3914,9 +3914,9 @@ fn dirty_message_for(buffer_path: Option<ProjectPath>) -> String {
                 .to_str()
                 .and_then(|s| if s.is_empty() { None } else { Some(s) })
         })
-        .unwrap_or("This buffer");
+        .unwrap_or("此缓冲区");
     let path = truncate_and_remove_front(path, 80);
-    format!("{path} contains unsaved edits. Do you want to save it?")
+    format!("{path} 包含未保存的修改。您要保存吗？")
 }
 
 pub fn tab_details(items: &[Box<dyn ItemHandle>], _window: &Window, cx: &App) -> Vec<usize> {
@@ -6137,7 +6137,7 @@ mod tests {
         });
 
         cx.executor().run_until_parked();
-        cx.simulate_prompt_answer("Save all");
+        cx.simulate_prompt_answer("保存全部");
         save.await.unwrap();
         assert_item_labels(&pane, [], cx);
 
@@ -6157,7 +6157,7 @@ mod tests {
         });
 
         cx.executor().run_until_parked();
-        cx.simulate_prompt_answer("Discard all");
+        cx.simulate_prompt_answer("丢弃全部");
         save.await.unwrap();
         assert_item_labels(&pane, [], cx);
     }

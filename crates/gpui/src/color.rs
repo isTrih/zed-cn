@@ -179,26 +179,26 @@ impl TryFrom<&'_ str> for Rgba {
             RGB | RGBA => {
                 let r = u8::from_str_radix(
                     hex.get(0..1).with_context(|| {
-                        format!("{INVALID_UNICODE}: r component of #rgb/#rgba for value: '{value}'")
+                        format!("{INVALID_UNICODE}: #rgb/#rgba 值的 r 组件：'{value}'")
                     })?,
                     16,
                 )?;
                 let g = u8::from_str_radix(
                     hex.get(1..2).with_context(|| {
-                        format!("{INVALID_UNICODE}: g component of #rgb/#rgba for value: '{value}'")
+                        format!("{INVALID_UNICODE}: #rgb/#rgba 值的 g 组件：'{value}'")
                     })?,
                     16,
                 )?;
                 let b = u8::from_str_radix(
                     hex.get(2..3).with_context(|| {
-                        format!("{INVALID_UNICODE}: b component of #rgb/#rgba for value: '{value}'")
+                        format!("{INVALID_UNICODE}: #rgb/#rgba 值的 b 组件：'{value}'")
                     })?,
                     16,
                 )?;
                 let a = if hex.len() == RGBA {
                     u8::from_str_radix(
                         hex.get(3..4).with_context(|| {
-                            format!("{INVALID_UNICODE}: a component of #rgba for value: '{value}'")
+                            format!("{INVALID_UNICODE}: #rgba 值的 a 组件：'{value}'")
                         })?,
                         16,
                     )?
@@ -218,7 +218,7 @@ impl TryFrom<&'_ str> for Rgba {
                 let r = u8::from_str_radix(
                     hex.get(0..2).with_context(|| {
                         format!(
-                            "{}: r component of #rrggbb/#rrggbbaa for value: '{}'",
+                            "{}: #rrggbb/#rrggbbaa 值的 r 组件：'{}'",
                             INVALID_UNICODE, value
                         )
                     })?,
@@ -227,7 +227,7 @@ impl TryFrom<&'_ str> for Rgba {
                 let g = u8::from_str_radix(
                     hex.get(2..4).with_context(|| {
                         format!(
-                            "{INVALID_UNICODE}: g component of #rrggbb/#rrggbbaa for value: '{value}'"
+                            "{INVALID_UNICODE}: #rrggbb/#rrggbbaa 值的 g 组件：'{value}'"
                         )
                     })?,
                     16,
@@ -235,7 +235,7 @@ impl TryFrom<&'_ str> for Rgba {
                 let b = u8::from_str_radix(
                     hex.get(4..6).with_context(|| {
                         format!(
-                            "{INVALID_UNICODE}: b component of #rrggbb/#rrggbbaa for value: '{value}'"
+                            "{INVALID_UNICODE}: #rrggbb/#rrggbbaa 值的 b 组件：'{value}'"
                         )
                     })?,
                     16,
@@ -244,7 +244,7 @@ impl TryFrom<&'_ str> for Rgba {
                     u8::from_str_radix(
                         hex.get(6..8).with_context(|| {
                             format!(
-                                "{INVALID_UNICODE}: a component of #rrggbbaa for value: '{value}'"
+                                "{INVALID_UNICODE}: #rrggbbaa 值的 a 组件：'{value}'"
                             )
                         })?,
                         16,

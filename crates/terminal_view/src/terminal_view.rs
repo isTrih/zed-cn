@@ -394,11 +394,11 @@ impl TerminalView {
                 .separator()
                 .action("Copy", Box::new(Copy))
                 .action("Paste", Box::new(Paste))
-                .action("Select All", Box::new(SelectAll))
-                .action("Clear", Box::new(Clear))
+                .action("全选", Box::new(SelectAll))
+                .action("清除", Box::new(Clear))
                 .when(assistant_enabled, |menu| {
                     menu.separator()
-                        .action("Inline Assist", Box::new(InlineAssist::default()))
+                        .action("内联助手", Box::new(InlineAssist::default()))
                 })
                 .separator()
                 .action(

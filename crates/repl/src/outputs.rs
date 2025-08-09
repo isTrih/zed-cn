@@ -289,14 +289,14 @@ impl Output {
                     content: cx.new(|_| view),
                     display_id,
                 },
-                Err(error) => Output::Message(format!("Failed to load image: {}", error)),
+                Err(error) => Output::Message(format!("加载图像失败：{}", error)),
             },
             Some(MimeType::DataTable(data)) => Output::Table {
                 content: cx.new(|cx| TableView::new(data, window, cx)),
                 display_id,
             },
             // Any other media types are not supported
-            _ => Output::Message("Unsupported media type".to_string()),
+            _ => Output::Message("不支持的媒体类型".to_string()),
         }
     }
 }

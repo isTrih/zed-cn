@@ -193,7 +193,7 @@ impl ThemeRegistry {
             };
 
             let Some(theme_family) = serde_json::from_slice(&theme)
-                .with_context(|| format!("failed to parse theme at path \"{path}\""))
+                .with_context(|| format!("无法解析路径处的主题 \"{path}\""))
                 .log_err()
             else {
                 continue;
@@ -208,7 +208,7 @@ impl ThemeRegistry {
         let mut theme_paths = fs
             .read_dir(themes_path)
             .await
-            .with_context(|| format!("reading themes from {themes_path:?}"))?;
+            .with_context(|| format!("从 {themes_path:?} 读取主题"))?;
 
         while let Some(theme_path) = theme_paths.next().await {
             let Some(theme_path) = theme_path.log_err() else {

@@ -84,7 +84,7 @@ impl<M: Migrator> ThreadSafeConnectionBuilder<M> {
                 if let Some(db_initialize_query) = db_initialize_query {
                     connection.exec(db_initialize_query).with_context(|| {
                         format!(
-                            "Db initialize query failed to execute: {}",
+                            "数据库初始化查询执行失败：{}",
                             db_initialize_query
                         )
                     })?()?;

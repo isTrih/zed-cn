@@ -1808,7 +1808,7 @@ async fn test_restarting_server_with_diagnostics_published(cx: &mut gpui::TestAp
         diagnostics: vec![lsp::Diagnostic {
             range: lsp::Range::new(lsp::Position::new(0, 0), lsp::Position::new(0, 0)),
             severity: Some(lsp::DiagnosticSeverity::ERROR),
-            message: "the message".to_string(),
+            message: "消息".to_string(),
             ..Default::default()
         }],
     });
@@ -1821,7 +1821,7 @@ async fn test_restarting_server_with_diagnostics_published(cx: &mut gpui::TestAp
                 .diagnostics_in_range::<_, usize>(0..1, false)
                 .map(|entry| entry.diagnostic.message.clone())
                 .collect::<Vec<_>>(),
-            ["the message".to_string()]
+            ["消息".to_string()]
         );
     });
     project.update(cx, |project, cx| {
@@ -2142,20 +2142,20 @@ async fn test_transforming_diagnostics(cx: &mut gpui::TestAppContext) {
                 range: lsp::Range::new(lsp::Position::new(0, 9), lsp::Position::new(0, 10)),
                 severity: Some(DiagnosticSeverity::ERROR),
                 message: "undefined variable 'A'".to_string(),
-                source: Some("disk".to_string()),
+                source: Some("磁盘".to_string()),
                 ..Default::default()
             },
             lsp::Diagnostic {
                 range: lsp::Range::new(lsp::Position::new(1, 9), lsp::Position::new(1, 11)),
                 severity: Some(DiagnosticSeverity::ERROR),
                 message: "undefined variable 'BB'".to_string(),
-                source: Some("disk".to_string()),
+                source: Some("磁盘".to_string()),
                 ..Default::default()
             },
             lsp::Diagnostic {
                 range: lsp::Range::new(lsp::Position::new(2, 9), lsp::Position::new(2, 12)),
                 severity: Some(DiagnosticSeverity::ERROR),
-                source: Some("disk".to_string()),
+                source: Some("磁盘".to_string()),
                 message: "undefined variable 'CCC'".to_string(),
                 ..Default::default()
             },
@@ -2230,14 +2230,14 @@ async fn test_transforming_diagnostics(cx: &mut gpui::TestAppContext) {
                 range: lsp::Range::new(lsp::Position::new(0, 9), lsp::Position::new(0, 10)),
                 severity: Some(DiagnosticSeverity::ERROR),
                 message: "undefined variable 'A'".to_string(),
-                source: Some("disk".to_string()),
+                source: Some("磁盘".to_string()),
                 ..Default::default()
             },
             lsp::Diagnostic {
                 range: lsp::Range::new(lsp::Position::new(0, 9), lsp::Position::new(0, 12)),
                 severity: Some(DiagnosticSeverity::WARNING),
                 message: "unreachable statement".to_string(),
-                source: Some("disk".to_string()),
+                source: Some("磁盘".to_string()),
                 ..Default::default()
             },
         ],
@@ -2324,14 +2324,14 @@ async fn test_transforming_diagnostics(cx: &mut gpui::TestAppContext) {
                 range: lsp::Range::new(lsp::Position::new(1, 9), lsp::Position::new(1, 11)),
                 severity: Some(DiagnosticSeverity::ERROR),
                 message: "undefined variable 'BB'".to_string(),
-                source: Some("disk".to_string()),
+                source: Some("磁盘".to_string()),
                 ..Default::default()
             },
             lsp::Diagnostic {
                 range: lsp::Range::new(lsp::Position::new(0, 9), lsp::Position::new(0, 10)),
                 severity: Some(DiagnosticSeverity::WARNING),
                 message: "undefined variable 'A'".to_string(),
-                source: Some("disk".to_string()),
+                source: Some("磁盘".to_string()),
                 ..Default::default()
             },
         ],
@@ -3504,7 +3504,7 @@ async fn test_apply_code_actions_with_commands(cx: &mut gpui::TestAppContext) {
         .set_request_handler::<lsp::request::CodeActionRequest, _, _>(|_, _| async move {
             Ok(Some(vec![
                 lsp::CodeActionOrCommand::CodeAction(lsp::CodeAction {
-                    title: "The code action".into(),
+                    title: "代码操作".into(),
                     data: Some(serde_json::json!({
                         "command": "_the/command",
                     })),
@@ -3530,7 +3530,7 @@ async fn test_apply_code_actions_with_commands(cx: &mut gpui::TestAppContext) {
         |mut action, _| async move {
             if action.data.is_some() {
                 action.command = Some(lsp::Command {
-                    title: "The command".into(),
+                    title: "命令".into(),
                     command: "_the/command".into(),
                     arguments: Some(vec![json!("the-argument")]),
                 });
@@ -4558,7 +4558,7 @@ async fn test_grouped_diagnostics(cx: &mut gpui::TestAppContext) {
                         uri: buffer_uri.clone(),
                         range: lsp::Range::new(lsp::Position::new(1, 8), lsp::Position::new(1, 9)),
                     },
-                    message: "original diagnostic".to_string(),
+                    message: "原始诊断".to_string(),
                 }]),
                 ..Default::default()
             },
@@ -4599,7 +4599,7 @@ async fn test_grouped_diagnostics(cx: &mut gpui::TestAppContext) {
                         uri: buffer_uri.clone(),
                         range: lsp::Range::new(lsp::Position::new(2, 8), lsp::Position::new(2, 17)),
                     },
-                    message: "original diagnostic".to_string(),
+                    message: "原始诊断".to_string(),
                 }]),
                 ..Default::default()
             },
@@ -4612,7 +4612,7 @@ async fn test_grouped_diagnostics(cx: &mut gpui::TestAppContext) {
                         uri: buffer_uri,
                         range: lsp::Range::new(lsp::Position::new(2, 8), lsp::Position::new(2, 17)),
                     },
-                    message: "original diagnostic".to_string(),
+                    message: "原始诊断".to_string(),
                 }]),
                 ..Default::default()
             },
@@ -6372,7 +6372,7 @@ async fn test_multiple_language_server_actions(cx: &mut gpui::TestAppContext) {
                             async move {
                                 Ok(Some(vec![lsp::CodeActionOrCommand::CodeAction(
                                     lsp::CodeAction {
-                                        title: format!("{name} code action"),
+                                        title: format!("{name} 代码操作"),
                                         ..lsp::CodeAction::default()
                                     },
                                 )]))

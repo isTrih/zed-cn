@@ -1150,7 +1150,7 @@ fn open_log_file(workspace: &mut Workspace, window: &mut Window, cx: &mut Contex
                                 Editor::for_multibuffer(buffer, Some(project), window, cx);
                             editor.set_read_only(true);
                             editor.set_breadcrumb_header(format!(
-                                "Last {} lines in {}",
+                                "在 {} 中的最后 {} 行",
                                 MAX_LINES,
                                 paths::log_file().display()
                             ));
@@ -1689,7 +1689,7 @@ fn open_telemetry_log_file(
                 app_state.fs.load(&path).await.log_err()
             }
 
-            let log = fetch_log_string(&app_state).await.unwrap_or_else(|| "// No data has been collected yet".to_string());
+            let log = fetch_log_string(&app_state).await.unwrap_or_else(|| "// 尚未收集任何数据".to_string());
 
             const MAX_TELEMETRY_LOG_LEN: usize = 5 * 1024 * 1024;
             let mut start_offset = log.len().saturating_sub(MAX_TELEMETRY_LOG_LEN);
@@ -2840,7 +2840,7 @@ mod tests {
             cx.update_global::<SettingsStore, _>(|store, cx| {
                 store.update_user_settings::<WorktreeSettings>(cx, |project_settings| {
                     project_settings.file_scan_exclusions =
-                        Some(vec!["excluded_dir".to_string(), "**/.git".to_string()]);
+                        Some(vec!["排除目录".to_string(), "**/.git".to_string()]);
                 });
             });
         });
@@ -4441,7 +4441,7 @@ mod tests {
             languages
                 .language_for_name(name.as_ref())
                 .await
-                .with_context(|| format!("language name {name}"))
+                .with_context(|| format!("语言名称 {name}"))
                 .unwrap();
         }
         cx.run_until_parked();

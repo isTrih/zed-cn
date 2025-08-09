@@ -1802,7 +1802,7 @@ pub mod tests {
                             Ok(Some(vec![
                                 lsp::InlayHint {
                                     position: lsp::Position::new(0, 1),
-                                    label: lsp::InlayHintLabel::String("type hint".to_string()),
+                                    label: lsp::InlayHintLabel::String("类型提示".to_string()),
                                     kind: Some(lsp::InlayHintKind::TYPE),
                                     text_edits: None,
                                     tooltip: None,
@@ -1813,7 +1813,7 @@ pub mod tests {
                                 lsp::InlayHint {
                                     position: lsp::Position::new(0, 2),
                                     label: lsp::InlayHintLabel::String(
-                                        "parameter hint".to_string(),
+                                        "参数提示".to_string(),
                                     ),
                                     kind: Some(lsp::InlayHintKind::PARAMETER),
                                     text_edits: None,
@@ -1850,15 +1850,15 @@ pub mod tests {
                 );
                 assert_eq!(
                     vec![
-                        "type hint".to_string(),
-                        "parameter hint".to_string(),
+                        "类型提示".to_string(),
+                        "参数提示".to_string(),
                         "other hint".to_string(),
                     ],
                     cached_hint_labels(editor),
                     "Should get its first hints when opening the editor"
                 );
                 assert_eq!(
-                    vec!["type hint".to_string(), "other hint".to_string()],
+                    vec!["类型提示".to_string(), "other hint".to_string()],
                     visible_hint_labels(editor, cx)
                 );
                 let inlay_cache = editor.inlay_hint_cache();
@@ -1884,15 +1884,15 @@ pub mod tests {
                 );
                 assert_eq!(
                     vec![
-                        "type hint".to_string(),
-                        "parameter hint".to_string(),
+                        "类型提示".to_string(),
+                        "参数提示".to_string(),
                         "other hint".to_string(),
                     ],
                     cached_hint_labels(editor),
                     "Cached hints should not change due to allowed hint kinds settings update"
                 );
                 assert_eq!(
-                    vec!["type hint".to_string(), "other hint".to_string()],
+                    vec!["类型提示".to_string(), "other hint".to_string()],
                     visible_hint_labels(editor, cx)
                 );
             })
@@ -1902,23 +1902,23 @@ pub mod tests {
             (HashSet::from_iter([None]), vec!["other hint".to_string()]),
             (
                 HashSet::from_iter([Some(InlayHintKind::Type)]),
-                vec!["type hint".to_string()],
+                vec!["类型提示".to_string()],
             ),
             (
                 HashSet::from_iter([Some(InlayHintKind::Parameter)]),
-                vec!["parameter hint".to_string()],
+                vec!["参数提示".to_string()],
             ),
             (
                 HashSet::from_iter([None, Some(InlayHintKind::Type)]),
-                vec!["type hint".to_string(), "other hint".to_string()],
+                vec!["类型提示".to_string(), "other hint".to_string()],
             ),
             (
                 HashSet::from_iter([None, Some(InlayHintKind::Parameter)]),
-                vec!["parameter hint".to_string(), "other hint".to_string()],
+                vec!["参数提示".to_string(), "other hint".to_string()],
             ),
             (
                 HashSet::from_iter([Some(InlayHintKind::Type), Some(InlayHintKind::Parameter)]),
-                vec!["type hint".to_string(), "parameter hint".to_string()],
+                vec!["类型提示".to_string(), "参数提示".to_string()],
             ),
             (
                 HashSet::from_iter([
@@ -1927,8 +1927,8 @@ pub mod tests {
                     Some(InlayHintKind::Parameter),
                 ]),
                 vec![
-                    "type hint".to_string(),
-                    "parameter hint".to_string(),
+                    "类型提示".to_string(),
+                    "参数提示".to_string(),
                     "other hint".to_string(),
                 ],
             ),
@@ -1956,8 +1956,8 @@ pub mod tests {
                 );
                 assert_eq!(
                     vec![
-                        "type hint".to_string(),
-                        "parameter hint".to_string(),
+                        "类型提示".to_string(),
+                        "参数提示".to_string(),
                         "other hint".to_string(),
                     ],
                     cached_hint_labels(editor),
@@ -2058,15 +2058,15 @@ pub mod tests {
                 );
                 assert_eq!(
                     vec![
-                        "type hint".to_string(),
-                        "parameter hint".to_string(),
+                        "类型提示".to_string(),
+                        "参数提示".to_string(),
                         "other hint".to_string(),
                     ],
                     cached_hint_labels(editor),
                     "Should get its cached hints fully repopulated after the hints got re-enabled"
                 );
                 assert_eq!(
-                    vec!["parameter hint".to_string()],
+                    vec!["参数提示".to_string()],
                     visible_hint_labels(editor, cx),
                     "Should get its visible hints repopulated and filtered after the h"
                 );
@@ -2093,14 +2093,14 @@ pub mod tests {
                 );
                 assert_eq!(
                     vec![
-                        "type hint".to_string(),
-                        "parameter hint".to_string(),
+                        "类型提示".to_string(),
+                        "参数提示".to_string(),
                         "other hint".to_string(),
                     ],
                     cached_hint_labels(editor),
                 );
                 assert_eq!(
-                    vec!["parameter hint".to_string()],
+                    vec!["参数提示".to_string()],
                     visible_hint_labels(editor, cx),
                 );
             })
@@ -2667,7 +2667,7 @@ pub mod tests {
                             params.range.start.character + 99,
                         ),
                         label: lsp::InlayHintLabel::String(
-                            "out of excerpt range, should be ignored".to_string(),
+                            "超出摘录范围，应该被忽略".to_string(),
                         ),
                         kind: None,
                         text_edits: None,
@@ -2706,12 +2706,12 @@ pub mod tests {
         editor
             .update(cx, |editor, _window, cx| {
                 let expected_hints = vec![
-                    "main hint #0".to_string(),
-                    "main hint #1".to_string(),
-                    "main hint #2".to_string(),
-                    "main hint #3".to_string(),
-                    "main hint #4".to_string(),
-                    "main hint #5".to_string(),
+                    "主要提示 #0".to_string(),
+                    "主要提示 #1".to_string(),
+                    "主要提示 #2".to_string(),
+                    "主要提示 #3".to_string(),
+                    "主要提示 #4".to_string(),
+                    "主要提示 #5".to_string(),
                 ];
                 assert_eq!(
                     expected_hints,
@@ -2748,15 +2748,15 @@ pub mod tests {
         editor
             .update(cx, |editor, _window, cx| {
                 let expected_hints = vec![
-                    "main hint #0".to_string(),
-                    "main hint #1".to_string(),
-                    "main hint #2".to_string(),
-                    "main hint #3".to_string(),
-                    "main hint #4".to_string(),
-                    "main hint #5".to_string(),
-                    "other hint #0".to_string(),
-                    "other hint #1".to_string(),
-                    "other hint #2".to_string(),
+                    "主要提示 #0".to_string(),
+                    "主要提示 #1".to_string(),
+                    "主要提示 #2".to_string(),
+                    "主要提示 #3".to_string(),
+                    "主要提示 #4".to_string(),
+                    "主要提示 #5".to_string(),
+                    "其他提示 #0".to_string(),
+                    "其他提示 #1".to_string(),
+                    "其他提示 #2".to_string(),
                 ];
                 assert_eq!(expected_hints, sorted_cached_hint_labels(editor),
                     "With more scrolls of the multibuffer, more hints should be added into the cache and nothing invalidated without edits");
@@ -2781,18 +2781,18 @@ pub mod tests {
         editor
             .update(cx, |editor, _window, cx| {
                 let expected_hints = vec![
-                    "main hint #0".to_string(),
-                    "main hint #1".to_string(),
-                    "main hint #2".to_string(),
-                    "main hint #3".to_string(),
-                    "main hint #4".to_string(),
-                    "main hint #5".to_string(),
-                    "other hint #0".to_string(),
-                    "other hint #1".to_string(),
-                    "other hint #2".to_string(),
-                    "other hint #3".to_string(),
-                    "other hint #4".to_string(),
-                    "other hint #5".to_string(),
+                    "主要提示 #0".to_string(),
+                    "主要提示 #1".to_string(),
+                    "主要提示 #2".to_string(),
+                    "主要提示 #3".to_string(),
+                    "主要提示 #4".to_string(),
+                    "主要提示 #5".to_string(),
+                    "其他提示 #0".to_string(),
+                    "其他提示 #1".to_string(),
+                    "其他提示 #2".to_string(),
+                    "其他提示 #3".to_string(),
+                    "其他提示 #4".to_string(),
+                    "其他提示 #5".to_string(),
                 ];
                 assert_eq!(expected_hints, sorted_cached_hint_labels(editor),
                     "After multibuffer was scrolled to the end, all hints for all excerpts should be fetched");
@@ -2817,18 +2817,18 @@ pub mod tests {
         editor
             .update(cx, |editor, _window, cx| {
                 let expected_hints = vec![
-                    "main hint #0".to_string(),
-                    "main hint #1".to_string(),
-                    "main hint #2".to_string(),
-                    "main hint #3".to_string(),
-                    "main hint #4".to_string(),
-                    "main hint #5".to_string(),
-                    "other hint #0".to_string(),
-                    "other hint #1".to_string(),
-                    "other hint #2".to_string(),
-                    "other hint #3".to_string(),
-                    "other hint #4".to_string(),
-                    "other hint #5".to_string(),
+                    "主要提示 #0".to_string(),
+                    "主要提示 #1".to_string(),
+                    "主要提示 #2".to_string(),
+                    "主要提示 #3".to_string(),
+                    "主要提示 #4".to_string(),
+                    "主要提示 #5".to_string(),
+                    "其他提示 #0".to_string(),
+                    "其他提示 #1".to_string(),
+                    "其他提示 #2".to_string(),
+                    "其他提示 #3".to_string(),
+                    "其他提示 #4".to_string(),
+                    "其他提示 #5".to_string(),
                 ];
                 assert_eq!(expected_hints, sorted_cached_hint_labels(editor),
                     "After multibuffer was scrolled to the end, further scrolls up should not bring more hints");
@@ -2849,14 +2849,14 @@ pub mod tests {
         editor
             .update(cx, |editor, _window, cx| {
                 let expected_hints = vec![
-                    "main hint #0".to_string(),
-                    "main hint #1".to_string(),
-                    "main hint #2".to_string(),
-                    "main hint #3".to_string(),
-                    "main hint #4".to_string(),
-                    "main hint #5".to_string(),
-                    "other hint(edited) #0".to_string(),
-                    "other hint(edited) #1".to_string(),
+                    "主要提示 #0".to_string(),
+                    "主要提示 #1".to_string(),
+                    "主要提示 #2".to_string(),
+                    "主要提示 #3".to_string(),
+                    "主要提示 #4".to_string(),
+                    "主要提示 #5".to_string(),
+                    "其他提示（编辑） #0".to_string(),
+                    "其他提示（编辑） #1".to_string(),
                 ];
                 assert_eq!(
                     expected_hints,
@@ -2977,7 +2977,7 @@ pub mod tests {
                             params.range.start.character + 99,
                         ),
                         label: lsp::InlayHintLabel::String(
-                            "out of excerpt range, should be ignored".to_string(),
+                            "超出摘录范围，应该被忽略".to_string(),
                         ),
                         kind: None,
                         text_edits: None,
@@ -3015,7 +3015,7 @@ pub mod tests {
         editor
             .update(cx, |editor, _, cx| {
                 assert_eq!(
-                    vec!["main hint #0".to_string(), "other hint #0".to_string()],
+                    vec!["主要提示 #0".to_string(), "其他提示 #0".to_string()],
                     sorted_cached_hint_labels(editor),
                     "Cache should update for both excerpts despite hints display was disabled"
                 );
@@ -3037,7 +3037,7 @@ pub mod tests {
         editor
             .update(cx, |editor, _, cx| {
                 assert_eq!(
-                    vec!["main hint #0".to_string()],
+                    vec!["主要提示 #0".to_string()],
                     cached_hint_labels(editor),
                     "For the removed excerpt, should clean corresponding cached hints"
                 );
@@ -3064,7 +3064,7 @@ pub mod tests {
         cx.executor().run_until_parked();
         editor
             .update(cx, |editor, _, cx| {
-                let expected_hints = vec!["main hint #0".to_string()];
+                let expected_hints = vec!["主要提示 #0".to_string()];
                 assert_eq!(
                     expected_hints,
                     cached_hint_labels(editor),

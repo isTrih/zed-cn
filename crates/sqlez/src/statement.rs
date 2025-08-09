@@ -65,7 +65,7 @@ impl<'a> Statement<'a> {
                 );
 
                 connection.last_error().with_context(|| {
-                    format!("Prepare call failed for query:\n{}", query.as_ref())
+                    format!("准备查询调用失败：\n{}", query.as_ref())
                 })?;
 
                 remaining_sql = CStr::from_ptr(remaining_sql_ptr);
@@ -116,7 +116,7 @@ impl<'a> Statement<'a> {
                     bind(raw_statement);
                     self.connection
                         .last_error()
-                        .with_context(|| format!("Failed to bind value at index {index}"))?;
+                        .with_context(|| format!("绑定索引 {index} 失败"))?;
                     any_succeed = true;
                 } else {
                     continue;
@@ -146,14 +146,14 @@ impl<'a> Statement<'a> {
 
         self.connection
             .last_error()
-            .with_context(|| format!("Failed to read blob at index {index}"))?;
+            .with_context(|| format!("读取 blob 失败，索引 {index}"))?;
         if pointer.is_null() {
             return Ok(&[]);
         }
         let len = unsafe { sqlite3_column_bytes(self.current_statement(), index) as usize };
         self.connection
             .last_error()
-            .with_context(|| format!("Failed to read length of blob at index {index}"))?;
+            .with_context(|| format!("读取 blob 长度失败，索引 {index}"))?;
 
         unsafe { Ok(slice::from_raw_parts(pointer as *const u8, len)) }
     }
@@ -171,7 +171,7 @@ impl<'a> Statement<'a> {
         let result = unsafe { sqlite3_column_double(self.current_statement(), index) };
         self.connection
             .last_error()
-            .with_context(|| format!("Failed to read double at index {index}"))?;
+            .with_context(|| format!("读取 double 失败，索引 {index}"))?;
         Ok(result)
     }
 
@@ -187,7 +187,7 @@ impl<'a> Statement<'a> {
         let result = unsafe { sqlite3_column_int(self.current_statement(), index) };
         self.connection
             .last_error()
-            .with_context(|| format!("Failed to read int at index {index}"))?;
+            .with_context(|| format!("读取 int 失败，索引 {index}"))?;
         Ok(result)
     }
 
@@ -203,7 +203,7 @@ impl<'a> Statement<'a> {
         let result = unsafe { sqlite3_column_int64(self.current_statement(), index) };
         self.connection
             .last_error()
-            .with_context(|| format!("Failed to read i64 at index {index}"))?;
+            .with_context(|| format!("读取 i64 失败，索引 {index}"))?;
         Ok(result)
     }
 
@@ -230,14 +230,14 @@ impl<'a> Statement<'a> {
 
         self.connection
             .last_error()
-            .with_context(|| format!("Failed to read text from column {index}"))?;
+            .with_context(|| format!("无法从列 {index} 读取文本"))?;
         if pointer.is_null() {
             return Ok("");
         }
         let len = unsafe { sqlite3_column_bytes(self.current_statement(), index) as usize };
         self.connection
             .last_error()
-            .with_context(|| format!("Failed to read text length at {index}"))?;
+            .with_context(|| format!("无法读取索引 {index} 处的文本长度"))?;
 
         let slice = unsafe { slice::from_raw_parts(pointer, len) };
         Ok(str::from_utf8(slice)?)

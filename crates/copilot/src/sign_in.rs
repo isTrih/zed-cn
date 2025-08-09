@@ -255,12 +255,12 @@ impl CopilotCodeVerification {
             .items_center()
             .child(Headline::new("Use GitHub Copilot in Zed.").size(HeadlineSize::Large))
             .child(
-                Label::new("Using Copilot requires an active subscription on GitHub.")
+                Label::new("使用 Copilot 需要在 GitHub 上有一个活跃的订阅。")
                     .color(Color::Muted),
             )
             .child(Self::render_device_code(data, cx))
             .child(
-                Label::new("Paste this code into GitHub after clicking the button below.")
+                Label::new("点击下面的按钮后将此代码粘贴到 GitHub 中。")
                     .size(ui::LabelSize::Small),
             )
             .child(
@@ -276,7 +276,7 @@ impl CopilotCodeVerification {
                     .style(ButtonStyle::Filled),
             )
             .child(
-                Button::new("copilot-enable-cancel-button", "Cancel")
+                Button::new("copilot-enable-cancel-button", "取消")
                     .full_width()
                     .on_click(cx.listener(|_, _, _, cx| {
                         cx.emit(DismissEvent);
@@ -292,7 +292,7 @@ impl CopilotCodeVerification {
                 "You can update your settings or sign out from the Copilot menu in the status bar.",
             ))
             .child(
-                Button::new("copilot-enabled-done-button", "Done")
+                Button::new("copilot-enabled-done-button", "完成")
                     .full_width()
                     .on_click(cx.listener(|_, _, _, cx| cx.emit(DismissEvent))),
             )
@@ -306,12 +306,12 @@ impl CopilotCodeVerification {
                 "You can enable Copilot by connecting your existing license once you have subscribed or renewed your subscription.",
             ).color(Color::Warning))
             .child(
-                Button::new("copilot-subscribe-button", "Subscribe on GitHub")
+                Button::new("copilot-subscribe-button", "在 GitHub 上订阅")
                     .full_width()
                     .on_click(|_, _, cx| cx.open_url(COPILOT_SIGN_UP_URL)),
             )
             .child(
-                Button::new("copilot-subscribe-cancel-button", "Cancel")
+                Button::new("copilot-subscribe-cancel-button", "取消")
                     .full_width()
                     .on_click(cx.listener(|_, _, _, cx| cx.emit(DismissEvent))),
             )

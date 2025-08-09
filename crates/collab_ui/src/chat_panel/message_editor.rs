@@ -181,9 +181,9 @@ impl MessageEditor {
             .map(|channel| channel.name.clone());
         self.editor.update(cx, |editor, cx| {
             if let Some(channel_name) = channel_name {
-                editor.set_placeholder_text(format!("Message #{channel_name}"), cx);
+                editor.set_placeholder_text(format!("消息 #{channel_name}"), cx);
             } else {
-                editor.set_placeholder_text("Message Channel", cx);
+                editor.set_placeholder_text("消息通道", cx);
             }
         });
     }

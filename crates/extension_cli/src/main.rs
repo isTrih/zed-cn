@@ -190,7 +190,7 @@ async fn copy_extension_resources(
                 source_grammars_dir.join(&grammar_filename),
                 output_grammars_dir.join(&grammar_filename),
             )
-            .with_context(|| format!("failed to copy grammar '{}'", grammar_filename.display()))?;
+            .with_context(|| format!("无法复制语法 '{}'", grammar_filename.display()))?;
         }
     }
 
@@ -202,7 +202,7 @@ async fn copy_extension_resources(
                 extension_path.join(theme_path),
                 output_themes_dir.join(theme_path.file_name().context("invalid theme path")?),
             )
-            .with_context(|| format!("failed to copy theme '{}'", theme_path.display()))?;
+            .with_context(|| format!("无法复制主题 '{}'", theme_path.display()))?;
         }
     }
 
@@ -254,7 +254,7 @@ async fn copy_extension_resources(
             )
             .await
             .with_context(|| {
-                format!("failed to copy language dir '{}'", language_path.display())
+                format!("无法复制语言目录 '{}'", language_path.display())
             })?;
         }
     }

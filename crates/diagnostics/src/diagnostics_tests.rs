@@ -86,7 +86,7 @@ async fn test_diagnostics(cx: &mut TestAppContext) {
                 },
                 lsp::DiagnosticRelatedInformation {
                     location: lsp::Location::new(uri.clone(), lsp::Range::new(lsp::Position::new(4,6),lsp::Position::new(4,7))),
-                    message: "value moved here".to_string()
+                    message: "值移到此处".to_string()
                 },
                 ]),
                 ..Default::default()
@@ -101,7 +101,7 @@ async fn test_diagnostics(cx: &mut TestAppContext) {
                 },
                 lsp::DiagnosticRelatedInformation {
                     location: lsp::Location::new(uri.clone(), lsp::Range::new(lsp::Position::new(3,6),lsp::Position::new(3,7))),
-                    message: "value moved here".to_string()
+                    message: "值移到此处".to_string()
                 },
                 ]),
                 ..Default::default()
@@ -260,7 +260,7 @@ async fn test_diagnostics(cx: &mut TestAppContext) {
                                 lsp::Position::new(1, 15),
                             ),
                             severity: Some(lsp::DiagnosticSeverity::ERROR),
-                            message: "unresolved name `c`".to_string(),
+                            message: "未解决的名称 `c`".to_string(),
                             ..Default::default()
                         },
                     ],

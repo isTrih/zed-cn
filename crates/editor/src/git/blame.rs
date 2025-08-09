@@ -715,7 +715,7 @@ mod tests {
             event,
             project::Event::Toast {
                 notification_id: "git-blame".into(),
-                message: "Failed to blame \"file.txt\": failed to get blame for \"file.txt\""
+                message: "无法责备 \"file.txt\"：获取 \"file.txt\" 的责备失败"
                     .to_string()
             }
         );

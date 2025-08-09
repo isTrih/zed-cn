@@ -98,7 +98,7 @@ impl Render for DiagnosticIndicator {
                 ButtonLike::new("diagnostic-indicator")
                     .child(diagnostic_indicator)
                     .tooltip(|window, cx| {
-                        Tooltip::for_action("Project Diagnostics", &Deploy, window, cx)
+                        Tooltip::for_action("项目诊断", &Deploy, window, cx)
                     })
                     .on_click(cx.listener(|this, _, window, cx| {
                         if let Some(workspace) = this.workspace.upgrade() {

@@ -221,7 +221,7 @@ impl TaskContexts {
 impl TaskSourceKind {
     pub fn to_id_base(&self) -> String {
         match self {
-            Self::UserInput => "oneshot".to_string(),
+            Self::UserInput => "单次触发".to_string(),
             Self::AbsPath { id_base, abs_path } => {
                 format!("{id_base}_{}", abs_path.display())
             }

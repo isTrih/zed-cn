@@ -362,7 +362,7 @@ impl SupermavenAgent {
                 continue;
             };
             let Some(message) = serde_json::from_str::<SupermavenMessage>(line)
-                .with_context(|| format!("failed to deserialize line from stdout: {:?}", line))
+                .with_context(|| format!("无法从标准输出反序列化行：{:?}", line))
                 .log_err()
             else {
                 continue;

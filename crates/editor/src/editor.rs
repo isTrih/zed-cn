@@ -2521,7 +2521,7 @@ impl Editor {
             cx,
             |e, _, _| match e.error_code() {
                 ErrorCode::RemoteUpgradeRequired => Some(format!(
-                "The remote instance of Zed does not support this yet. It must be upgraded to {}",
+                "远程的 Zed 实例目前不支持此功能。必须升级到 {}",
                 e.error_tag("required").unwrap_or("the latest version")
             )),
                 _ => None,
@@ -2592,7 +2592,7 @@ impl Editor {
         .detach_and_prompt_err("Failed to create buffer", window, cx, |e, _, _| {
             match e.error_code() {
                 ErrorCode::RemoteUpgradeRequired => Some(format!(
-                "The remote instance of Zed does not support this yet. It must be upgraded to {}",
+                "远程的 Zed 实例目前不支持此功能。必须升级到 {}",
                 e.error_tag("required").unwrap_or("the latest version")
             )),
                 _ => None,
@@ -16031,7 +16031,7 @@ impl Editor {
                     .map(|location| {
                         let buffer = location.buffer.read(cx);
                         format!(
-                            "References to `{}`",
+                            "对 `{}` 的引用",
                             buffer
                                 .text_for_range(location.range.clone())
                                 .collect::<String>()
@@ -16403,7 +16403,7 @@ impl Editor {
                 &editor,
                 workspace,
                 project_transaction,
-                format!("Rename: {} → {}", old_name, new_name),
+                format!("重命名：{} → {}", old_name, new_name),
                 cx,
             )
             .await?;
@@ -19001,7 +19001,7 @@ impl Editor {
                 .ok();
             }
             Err(err) => {
-                let message = format!("Failed to copy permalink: {err}");
+                let message = format!("复制永久链接失败：{err}");
 
                 anyhow::Result::<()>::Err(err).log_err();
 
@@ -19056,7 +19056,7 @@ impl Editor {
                 .ok();
             }
             Err(err) => {
-                let message = format!("Failed to open permalink: {err}");
+                let message = format!("打开永久链接失败：{err}");
 
                 anyhow::Result::<()>::Err(err).log_err();
 

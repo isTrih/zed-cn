@@ -125,7 +125,7 @@ impl ExtensionBuilder {
             );
             self.compile_grammar(extension_dir, grammar_name.as_ref(), grammar_metadata)
                 .await
-                .with_context(|| format!("failed to compile grammar '{grammar_name}'"))?;
+                .with_context(|| format!("无法编译语法 '{grammar_name}'"))?;
             log::info!(
                 "compiled grammar {grammar_name} for extension {}",
                 extension_dir.display()
@@ -192,7 +192,7 @@ impl ExtensionBuilder {
         );
 
         let component_bytes = fs::read(&wasm_path)
-            .with_context(|| format!("failed to read output module `{}`", wasm_path.display()))?;
+            .with_context(|| format!("无法读取输出模块 `{}`", wasm_path.display()))?;
 
         let component_bytes = self
             .strip_custom_sections(&component_bytes)
@@ -296,7 +296,7 @@ impl ExtensionBuilder {
             }
         } else {
             fs::create_dir_all(directory).with_context(|| {
-                format!("failed to create grammar directory {}", directory.display(),)
+                format!("无法创建语法目录 {}", directory.display(),)
             })?;
             let init_output = util::command::new_std_command("git")
                 .arg("init")
