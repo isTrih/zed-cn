@@ -21,6 +21,7 @@ jobs:
           else
             echo "No trans: prefix in commit message. Skipping build."
             exit 1
+          fi
 
       - name: Create Git Tag
         if: steps.extract-version.outputs.version != ''
