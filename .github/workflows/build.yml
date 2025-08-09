@@ -11,13 +11,15 @@ jobs:
     outputs:
       version: ${{ steps.extract-version.outputs.version }}
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Extract version from commit message
         id: extract-version
         run: |
           msg="${{ github.event.head_commit.message }}"
           if [[ "$msg" =~ ^trans:\ (.+)$ ]]; then
-            version="${BASH_REMATCH[1]}"
-            echo "version=$version" >> $GITHUB_OUTPUT
+            echo "version=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
           else
             echo "No trans: prefix in commit message. Skipping build."
             exit 1
@@ -100,7 +102,6 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      # 导入 Apple 证书
       - name: Import Apple Developer Certificate
         run: |
           echo "$MAC_CERT_P12_BASE64" | base64 --decode > certificate.p12
@@ -137,16 +138,14 @@ jobs:
       - name: Build Release
         run: cargo build --release --target aarch64-apple-darwin
 
-      # 代码签名
       - name: Sign binary
         run: |
           codesign --force --options runtime \
-                   --sign "Developer ID Application: Your Name (TEAMID)" \
+                   --sign "Developer ID Application: SupraRectus Technology Co., Ltd (5CBP5N6G63)" \
                    target/aarch64-apple-darwin/release/zed
         env:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
 
-      # 公证（可选）
       - name: Notarize app
         run: |
           ditto -c -k --keepParent target/aarch64-apple-darwin/release/zed zed-macos-arm64.zip
@@ -183,7 +182,7 @@ jobs:
       - name: Create or Update GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/*/*
+          files: dist/*
           tag_name: ${{ needs.check-commit.outputs.version }}
           name: Release ${{ needs.check-commit.outputs.version }}
           draft: false
