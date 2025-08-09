@@ -42,6 +42,11 @@ jobs:
     needs: check-commit
     if: needs.check-commit.outputs.version != ''
     runs-on: windows-latest
+    env:
+      ZED_WORKSPACE: ${{ github.workspace }}
+      RELEASE_VERSION: ${{ needs.check-commit.outputs.version }}
+      ZED_RELEASE_CHANNEL: dev
+      RELEASE_CHANNEL: dev
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -68,96 +73,99 @@ jobs:
       - name: Cache cargo build
         uses: Swatinem/rust-cache@v2
 
-      - name: Build Release
-        run: cargo build --release --target x86_64-pc-windows-msvc
-
-      - name: Package Windows Build
+      - name: Install Inno Setup
         run: |
-          mkdir dist
-          copy target\x86_64-pc-windows-msvc\release\zed*.exe dist\
-          powershell Compress-Archive -Path dist\* -DestinationPath zed-windows-amd64.zip
+          $url = "https://files.jrsoftware.org/is/6/innosetup-6.2.2.exe"
+          $output = "$env:TEMP\innosetup.exe"
+          Invoke-WebRequest -Uri $url -OutFile $output
+          Start-Process -FilePath $output -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART" -Wait
+        shell: powershell
 
-      - name: Upload artifact
+      - name: Build Zed installer
+        working-directory: ${{ env.ZED_WORKSPACE }}
+        run: |
+          try {
+            script/bundle-windows-ci.ps1
+          } catch {
+            Write-Error "Build failed: $_"
+            Get-ChildItem target -Recurse -ErrorAction SilentlyContinue | Where-Object {$_.Name -like "*.log"} | ForEach-Object {
+              Write-Output "=== $($_.FullName) ==="
+              Get-Content $_.FullName -ErrorAction SilentlyContinue
+            }
+            throw
+          }
+        shell: powershell
+
+      - name: Check if installer was created
+        run: |
+          if (Test-Path env:SETUP_PATH) {
+            Write-Output "Installer path: $env:SETUP_PATH"
+            if (Test-Path $env:SETUP_PATH) {
+              Write-Output "Installer file exists and is $(Get-Item $env:SETUP_PATH | Select-Object -ExpandProperty Length) bytes"
+            } else {
+              Write-Error "Installer file not found at $env:SETUP_PATH"
+              exit 1
+            }
+          } else {
+            Write-Error "SETUP_PATH environment variable not set"
+            exit 1
+          }
+        shell: powershell
+
+      - name: Upload installer artifact
         uses: actions/upload-artifact@v4
         with:
-          name: zed-windows-amd64
-          path: zed-windows-amd64.zip
+          name: zed-windows-installer
+          path: ${{ env.SETUP_PATH }}
           if-no-files-found: error
 
   build-macos:
     needs: check-commit
     if: needs.check-commit.outputs.version != ''
     runs-on: macos-latest
+    env:
+      MACOS_CERTIFICATE: ${{ secrets.MAC_CERT_P12_BASE64 }}
+      MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MAC_CERT_PASSWORD }}
+      APPLE_NOTARIZATION_KEY: ${{ secrets.APPLE_NOTARIZATION_KEY }}
+      APPLE_NOTARIZATION_KEY_ID: ${{ secrets.APPLE_NOTARIZATION_KEY_ID }}
+      APPLE_NOTARIZATION_ISSUER_ID: ${{ secrets.APPLE_NOTARIZATION_ISSUER_ID }}
+      MACOS_SIGNING_KEY: ${{ secrets.MACOS_SIGNING_KEY }}
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Import Apple Developer Certificate
+      - name: Install dependencies
         run: |
-          echo "$MAC_CERT_P12_BASE64" | base64 --decode > certificate.p12
-          security create-keychain -p temp_pass build.keychain
-          security default-keychain -s build.keychain
-          security unlock-keychain -p temp_pass build.keychain
-          security import certificate.p12 -k build.keychain -P "$MAC_CERT_PASSWORD" -T /usr/bin/codesign
-          security set-key-partition-list -S apple-tool:,apple: -k temp_pass build.keychain
-        env:
-          MAC_CERT_P12_BASE64: ${{ secrets.MAC_CERT_P12_BASE64 }}
-          MAC_CERT_PASSWORD: ${{ secrets.MAC_CERT_PASSWORD }}
+          brew update
+          brew install jq cmake
+          npm install -g dmg-license minimist
 
-      - name: Install Rust (arm64 target)
+      - name: Setup Rust toolchain with targets
         uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
-          targets: aarch64-apple-darwin
+          targets: aarch64-apple-darwin,x86_64-apple-darwin
           override: true
 
-      - name: Select Xcode
+      - name: Setup Xcode
         run: |
           sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
           sudo xcodebuild -license accept
 
-      - name: Install CMake
-        run: brew install cmake
+      - name: Make bundle script executable
+        run: chmod +x ./script/bundle-mac
 
-      - name: Set clang args
-        run: echo "BINDGEN_EXTRA_CLANG_ARGS=--sysroot=$(xcrun --show-sdk-path)" >> $GITHUB_ENV
+      - name: Build & Bundle macOS app
+        run: ./script/bundle-mac -o
 
-      - name: Cache cargo build
-        uses: Swatinem/rust-cache@v2
-
-      - name: Build Release
-        run: cargo build --release --target aarch64-apple-darwin
-
-      - name: Sign binary
-        run: |
-          codesign --force --options runtime \
-                   --sign "Developer ID Application: SupraRectus Technology Co., Ltd (5CBP5N6G63)" \
-                   target/aarch64-apple-darwin/release/zed
-        env:
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-
-      - name: Notarize app
-        run: |
-          ditto -c -k --keepParent target/aarch64-apple-darwin/release/zed zed-macos-arm64.zip
-          xcrun notarytool submit zed-macos-arm64.zip \
-              --apple-id "${{ secrets.APPLE_ID }}" \
-              --password "${{ secrets.APPLE_APP_PASSWORD }}" \
-              --team-id "${{ secrets.APPLE_TEAM_ID }}" \
-              --wait
-          xcrun stapler staple target/aarch64-apple-darwin/release/zed
-
-      - name: Package macOS Build
-        run: |
-          mkdir dist
-          cp target/aarch64-apple-darwin/release/zed* dist/
-          tar -czf zed-macos-arm64.tar.gz -C dist .
-
-      - name: Upload artifact
+      - name: Upload macOS build artifact (DMG and app)
         uses: actions/upload-artifact@v4
         with:
-          name: zed-macos-arm64
-          path: zed-macos-arm64.tar.gz
-          if-no-files-found: error
+          name: zed-macos-build
+          path: |
+            target/x86_64-apple-darwin/release/dmg/Zed.dmg
+            target/aarch64-apple-darwin/release/dmg/Zed.dmg
+            # 也可以上传 app 包目录，如果你需要
 
   release:
     needs: [check-commit, build-windows, build-macos]
@@ -169,10 +177,29 @@ jobs:
         with:
           path: dist
 
+      - name: List downloaded artifacts
+        run: |
+          echo "Downloaded artifacts:"
+          find dist -type f -name "*" | head -20
+
+      - name: Prepare release files
+        run: |
+          mkdir -p release-files
+          # Copy Windows installer
+          if [ -f dist/zed-windows-installer/*.exe ]; then
+            cp dist/zed-windows-installer/*.exe release-files/
+          fi
+          # Copy macOS DMG files
+          if [ -d dist/zed-macos-build ]; then
+            find dist/zed-macos-build -name "*.dmg" -exec cp {} release-files/ \;
+          fi
+          echo "Release files:"
+          ls -la release-files/
+
       - name: Create or Update GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/*
+          files: release-files/*
           tag_name: ${{ needs.check-commit.outputs.version }}
           name: Release ${{ needs.check-commit.outputs.version }}
           draft: false
